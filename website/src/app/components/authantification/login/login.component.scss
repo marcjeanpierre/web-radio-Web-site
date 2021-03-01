@@ -92,7 +92,7 @@ p {
 .form {
   margin-left: auto;
   margin-right: auto;
-  width: 240px;
+  width: 290px;
 }
 .logo {
   width: 153px;
@@ -102,7 +102,7 @@ p {
 }
 
 mat-form-field {
-  width: 230px;
+  width: 240px;
   display: block;
   margin: 10px auto;
 }
@@ -131,6 +131,11 @@ mat-form-field {
   margin-top: 20px;
   text-align: right;
   display: block;
+  color: white;
+  text-decoration: none;
+  &.forgot-pwd:hover {
+    color: palevioletred
+  }
 }
  input {
    padding-left: 10px;

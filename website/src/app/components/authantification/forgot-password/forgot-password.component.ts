@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  sent = false;
+  textButton = "Send"
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  sendEmail(){
+    this.sent = true;
+    this.textButton = "Login"
+  }
 }

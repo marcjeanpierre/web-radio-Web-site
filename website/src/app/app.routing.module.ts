@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { AcceuilComponent } from './components/acceuil/acceuil.component';
+import { ForgotPasswordComponent } from './components/authantification/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/authantification/login/login.component';
+import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
+import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 
 
 const routes: Routes = [{
@@ -12,7 +16,24 @@ const routes: Routes = [{
     {
       path: 'login',
       component: LoginComponent
-    }
+    },
+    {
+      path: 'forgotPassword',
+      component: ForgotPasswordComponent
+    },
+    {
+      path: 'resetPassword',
+      component: ResetPasswordComponent
+    },
+    {
+      path: 'acceuil',
+      component: AcceuilComponent
+    },
+    {
+      path: 'radioMix',
+      component: RadioMixComponent
+    },
+
   ]
 }];
 

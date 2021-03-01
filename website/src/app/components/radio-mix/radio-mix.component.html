@@ -1,1 +1,13 @@
-<p>radio-mix works!</p>
+<div ng-controller="AppCtrl" ng-cloak>
+    <mat-slider ng-model="vol" min="0" max="100" aria-label="volume" id="volume-slider" class="md-accent" md-vertical
+        md-range></mat-slider>
+    <h5>Volume</h5>
+    <mat-slider md-discrete ng-model="bass" min="0" max="100" step="10" aria-label="bass" class="md-primary" md-vertical>
+    </mat-slider>
+    <h5>Bass</h5>
+    <div flex layout="column" layout-align="center center">
+        <mat-slider flex ng-model="master" md-discrete aria-label="Master" md-vertical step="10" ng-readonly="readonly">
+        </mat-slider>
+        <h5>Master</h5>
+    </div>
+</div>
