@@ -6,13 +6,21 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app.routing.module';
 import {MatCardModule} from '@angular/material/card';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './authantification/login/login.component';
+import { LoginComponent } from './components/authantification/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForgotPasswordComponent } from './components/authantification/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
+import { AcceuilComponent } from './components/acceuil/acceuil.component';
+import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    AcceuilComponent,
+    RadioMixComponent
   ],
   imports: [
     BrowserModule,
