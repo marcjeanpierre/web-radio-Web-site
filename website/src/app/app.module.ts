@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 /* Material */
 import {MatInputModule} from '@angular/material/input';
@@ -8,7 +9,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app.routing.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatSliderModule} from '@angular/material/slider';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -18,7 +20,7 @@ import { ForgotPasswordComponent } from './components/authantification/forgot-pa
 import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
 import { AcceuilComponent } from './components/acceuil/acceuil.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
-
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     AcceuilComponent,
-    RadioMixComponent
+    RadioMixComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -37,14 +40,19 @@ import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule,
+    MatIconModule,
+    FormsModule
   ],
   exports: [
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

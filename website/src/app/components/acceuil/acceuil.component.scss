@@ -1,0 +1,169 @@
+:host {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white !important;
+}
+
+.page-content {
+  background-color: #100f15;
+  color: white;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+::ng-deep {
+  .mat-tab-label {
+    color: white !important;
+    opacity: 1 !important;
+  }
+  .mat-tab-header {
+    border-bottom: 1px solid #6e6e6e !important;
+  }
+  .mat-ink-bar {
+    background-color: #0a2472 !important;
+  }
+}
+
+.container {
+  margin: 70px;
+  // padding-top: 60px;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  &.info {
+   width: 100%;
+   // align-items: center;
+
+  }
+}
+.information {
+  margin: 50px 20px 50px 10px !important;
+  height: 80%;
+  box-shadow: 0px 4px 37px 6px rgba(0, 0, 0, 0.51);
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+}
+.setting {
+  margin: 50px 10px 50px 20px !important;
+  height: 80%;
+  box-shadow: 0px 4px 36px 11px rgba(0, 0, 0, 0.51);
+  border-radius: 25px;
+}
+
+.title {
+  display: contents;
+  width: 50%
+}
+
+.information-title {
+  width: 60%;
+  text-align: center;
+}
+
+.setting-title {
+  width: 40%;
+  text-align: center;
+}
+
+.left-information {
+  float:left;
+  width: 50%;
+}
+.right-information {
+  float:right;
+  width: 50%;
+}
+
+.information-container {
+  width: 100%;  
+}
+
+.right-information-container {
+  align-items: center;
+  padding-top: 40px;
+  float:right;
+  width: 40%;
+}
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+.setting-item {
+  float: left;
+  width: 100%;
+}
+
+.number-of-piste {
+  width: 40px;
+  border: 2px solid black;
+  border-radius: 4px;
+  float: right;
+  margin-right: 100px;
+}
+.setting-item-value {
+  float: left;
+
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+// style the input label and input border
+::ng-deep {
+  $input-main-color: black;
+  $input-label-color: black;
+  .ng-touched::-webkit-input-placeholder {
+    color: $input-main-color;
+  }
+  .ng-untouched::-webkit-input-placeholder {
+    color: $input-main-color;
+  }
+  // input outline color
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $input-main-color !important;
+  }
+
+  // mat-input focused color
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: $input-main-color !important;
+  }
+
+  // mat-input error outline color
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+    .mat-form-field-outline-thick {
+    color: $input-main-color !important;
+    opacity: 0.8 !important;
+  }
+
+  // mat-input caret color
+  .mat-input-element {
+    caret-color: $input-main-color !important;
+  }
+
+  // mat-input error caret color
+  .mat-form-field-invalid .mat-input-element,
+  .mat-warn .mat-input-element {
+    caret-color: $input-main-color !important;
+  }
+
+  // mat-label normal state style
+  .mat-form-field-label {
+    color: $input-label-color !important;
+  }
+
+  // mat-label focused style
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: $input-main-color !important;
+  }
+
+  // mat-label error style
+  .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: $input-main-color !important;
+  }
+}

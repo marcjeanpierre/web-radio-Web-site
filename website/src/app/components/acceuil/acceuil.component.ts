@@ -6,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./acceuil.component.scss']
 })
 export class AcceuilComponent implements OnInit {
-
+  Title = '';
+  Artist = '';
+  Album = '';
+  Genre = '';
+  Year = '';
   constructor() { }
 
   ngOnInit(): void {
