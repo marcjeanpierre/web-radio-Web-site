@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AcceuilComponent } from './components/acceuil/acceuil.component';
+import { HomeComponent } from './components/home/home.component';
 import { ForgotPasswordComponent } from './components/authantification/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/authantification/login/login.component';
 import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
@@ -26,8 +26,8 @@ const routes: Routes = [{
       component: ResetPasswordComponent
     },
     {
-      path: 'acceuil',
-      component: AcceuilComponent
+      path: 'home',
+      component: HomeComponent
     },
     {
       path: 'radioMix',

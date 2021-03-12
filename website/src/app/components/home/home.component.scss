@@ -1,20 +1,169 @@
+@import "../../styles/variables.scss";
+
 :host {
   height: 100%;
   width: 100%;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  color: white !important;
+  color: $PrimaryTextColor !important;
 }
 
 .page-content {
-  background-color: #100f15;
-  color: white;
+  background-color: $BGColor;
+  color: $PrimaryTextColor;
   height: 100%;
   width: 100%;
   margin: 0;
 }
 
+.container {
+  margin: 70px;
+  padding: 20px 30px;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+}
+
+.validate {
+  height: 40px;
+  width: 160px;
+  border-radius: 100px;
+  background: #091D5A;
+  color: $PrimaryTextColor;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 35px;
+  margin: auto 0;
+  left: 46%;
+}
+
+.information {
+  margin: 50px 20px 50px 10px !important;
+  height: 60%;
+  box-shadow: 0px 4px 37px 6px rgba(0, 0, 0, 0.51);
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+}
+.setting {
+  margin: 50px 10px 50px 20px !important;
+  height: 60%;
+  box-shadow: 0px 4px 36px 11px rgba(0, 0, 0, 0.51);
+  border-radius: 25px;
+}
+
+.title {
+  display: contents;
+  width: 50%;
+}
+
+.information-title {
+  width: 55%;
+  text-align: center;
+}
+
+.setting-title {
+  width: 45%;
+  text-align: center;
+}
+
+.left-information {
+  float: left;
+  width: 50%;
+}
+.right-information {
+  float: right;
+  width: 50%;
+}
+
+.information-container {
+  width: 100%;
+}
+
+.right-information-container {
+  align-items: center;
+  padding-top: 40px;
+  float: right;
+  width: 40%;
+}
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+.setting-item {
+  float: left;
+  width: 53%;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.number-of-piste {
+  width: 40px;
+  border: 2px solid $PrimaryBorderColor;
+  border-radius: 4px;
+  float: right;
+}
+
+.diffusion-option {
+  float: right !important;
+}
+
+.rec-option {
+  float: right !important;
+}
+
+.setting-item-value {
+  text-align: left;
+}
+
+.setting-container {
+  margin-top: 70px !important;
+}
+
+.container-load {
+  margin: 70px;
+  padding: 20px 30px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.load-title {
+  padding-left: 40px;
+}
+
+.load-item {
+  margin: 10px 0px;
+  box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.41);
+  border-radius: 20px;
+  background: $PrimaryContainerColor;
+  height: 30px
+}
+
+.cloud {
+  background: url(../../../assets/svg/cloud.svg) no-repeat scroll 0px 0px;
+  padding-left: 50px;
+  padding-bottom: 20px;
+  padding-bottom: 20px;
+}
+.item-name {
+  text-decoration: none;
+  color: $SecondaryTextColor;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 15px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+// style the input label and input border
 ::ng-deep {
+  //mat-tab section
   .mat-tab-label {
     color: white !important;
     opacity: 1 !important;
@@ -25,101 +174,15 @@
   .mat-ink-bar {
     background-color: #0a2472 !important;
   }
-}
 
-.container {
-  margin: 70px;
-  // padding-top: 60px;
-  height: 500px;
-  display: flex;
-  flex-direction: row;
-  &.info {
-   width: 100%;
-   // align-items: center;
-
-  }
-}
-.information {
-  margin: 50px 20px 50px 10px !important;
-  height: 80%;
-  box-shadow: 0px 4px 37px 6px rgba(0, 0, 0, 0.51);
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-}
-.setting {
-  margin: 50px 10px 50px 20px !important;
-  height: 80%;
-  box-shadow: 0px 4px 36px 11px rgba(0, 0, 0, 0.51);
-  border-radius: 25px;
-}
-
-.title {
-  display: contents;
-  width: 50%
-}
-
-.information-title {
-  width: 60%;
-  text-align: center;
-}
-
-.setting-title {
-  width: 40%;
-  text-align: center;
-}
-
-.left-information {
-  float:left;
-  width: 50%;
-}
-.right-information {
-  float:right;
-  width: 50%;
-}
-
-.information-container {
-  width: 100%;  
-}
-
-.right-information-container {
-  align-items: center;
-  padding-top: 40px;
-  float:right;
-  width: 40%;
-}
-
-.mat-form-field {
-  width: 100% !important;
-}
-
-.setting-item {
-  float: left;
-  width: 100%;
-}
-
-.number-of-piste {
-  width: 40px;
-  border: 2px solid black;
-  border-radius: 4px;
-  float: right;
-  margin-right: 100px;
-}
-.setting-item-value {
-  float: left;
-
-}
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-// style the input label and input border
-::ng-deep {
-  $input-main-color: black;
-  $input-label-color: black;
+  //mat-form section
+  $input-main-color: $PrimaryBorderColor;
+  $input-label-color: $PrimaryBorderColor;
   .ng-touched::-webkit-input-placeholder {
     color: $input-main-color;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    opacity: 1 !important;
   }
   .ng-untouched::-webkit-input-placeholder {
     color: $input-main-color;
@@ -135,8 +198,7 @@ input[type='number']::-webkit-outer-spin-button {
   }
 
   // mat-input error outline color
-  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
-    .mat-form-field-outline-thick {
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid {
     color: $input-main-color !important;
     opacity: 0.8 !important;
   }

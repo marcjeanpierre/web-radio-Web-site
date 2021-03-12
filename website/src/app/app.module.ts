@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 /* Material */
-import {MatInputModule} from '@angular/material/input';
-import { MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppRoutingModule } from './app.routing.module';
-import {MatCardModule} from '@angular/material/card';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatIconModule} from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -18,7 +20,7 @@ import { LoginComponent } from './components/authantification/login/login.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgotPasswordComponent } from './components/authantification/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
-import { AcceuilComponent } from './components/acceuil/acceuil.component';
+import { HomeComponent } from './components/home/home.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
@@ -28,7 +30,7 @@ import { HeaderComponent } from './components/header/header.component';
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    AcceuilComponent,
+    HomeComponent,
     RadioMixComponent,
     HeaderComponent
   ],
@@ -43,7 +45,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatSliderModule,
     MatTabsModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatCheckboxModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +56,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatCardModule,
     MatSliderModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

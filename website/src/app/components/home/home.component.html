@@ -8,7 +8,7 @@
                         <div class="information-container">
                             <div class="left-information">
                                 <div>
-                                    <mat-form-field appearance="outline">
+                                    <mat-form-field class="info-option" appearance="outline">
                                         <mat-label>Title</mat-label>
                                         <input matInput type="text" [(ngModel)]="Title">
                                         <button mat-button *ngIf="Title" matSuffix mat-icon-button aria-label="Clear"
@@ -18,7 +18,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <mat-form-field appearance="outline">
+                                    <mat-form-field class="info-option" appearance="outline">
                                         <mat-label>Artist</mat-label>
                                         <input matInput type="text" [(ngModel)]="Artist">
                                         <button mat-button *ngIf="Artist" matSuffix mat-icon-button aria-label="Clear"
@@ -28,7 +28,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <mat-form-field appearance="outline">
+                                    <mat-form-field class="info-option" appearance="outline">
                                         <mat-label>Album</mat-label>
                                         <input matInput type="text" [(ngModel)]="Album">
                                         <button mat-button *ngIf="Album" matSuffix mat-icon-button aria-label="Clear"
@@ -42,7 +42,7 @@
                                 <div class="right-information">
                             </div>
                                 <div>
-                                    <mat-form-field appearance="outline">
+                                    <mat-form-field class="info-option" appearance="outline">
                                         <mat-label>Genre</mat-label>
                                         <input matInput type="text" [(ngModel)]="Genre">
                                         <button mat-button *ngIf="Genre" matSuffix mat-icon-button aria-label="Clear"
@@ -52,7 +52,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <mat-form-field appearance="outline">
+                                    <mat-form-field class="info-option" appearance="outline">
                                         <mat-label>Year</mat-label>
                                         <input matInput type="text" [(ngModel)]="Year">
                                         <button mat-button *ngIf="Year" matSuffix mat-icon-button aria-label="Clear"
@@ -68,21 +68,29 @@
                 <div class="setting-title">
                     <mat-card-title>Settings</mat-card-title>
                     <mat-card class="setting">
-                        <div class="setting-item">
-                            <mat-card-content class="setting-item-value">Piste number :</mat-card-content>
-                            <input class= "number-of-piste" matInput type="number">
-                        </div>
-                        <div class="setting-item">
-                            <mat-card-content class="setting-item-value">Diffusion :</mat-card-content>
-                            <input class= "diffusion" matInput type="number">
-                        </div>
-                        <div class="setting-item">
-                            <mat-card-content class="setting-item-value">Rec :</mat-card-content>
+                        <div class="setting-container">
+                            <div class="setting-item">
+                                <mat-card-content class="setting-item-value">Piste number :<input class= "number-of-piste" matInput type="number"></mat-card-content>
+                            </div>
+                            <div class="setting-item">
+                                <mat-card-content class="setting-item-value">Diffusion :<mat-slide-toggle class= "diffusion-option"></mat-slide-toggle></mat-card-content>
+                            </div>
+                            <div class="setting-item">
+                                <mat-card-content class="setting-item-value">Rec : <mat-checkbox class="rec-option"></mat-checkbox></mat-card-content>
+                            </div>
                         </div>
                     </mat-card>
                 </div>
+                <button mat-button class="validate" routerLink="/radioMix">Validate</button>
             </mat-card>
         </mat-tab>
-        <mat-tab label="Load"> Load </mat-tab>
+        <mat-tab label="Load">
+            <mat-card class="container-load">
+                <mat-card-title class="load-title">Recent mix</mat-card-title>
+                <mat-card class="load-item">
+                    <span class="cloud"></span><a class="item-name" routerLink="/radioMix">My Mix 1</a>
+                </mat-card>
+            </mat-card>
+        </mat-tab>
     </mat-tab-group>
 </div>

@@ -1,3 +1,4 @@
+@import "../../../styles/variables.scss";
 :host {
   height: 100%;
   width: 100%;
@@ -7,7 +8,7 @@
 
 .page-content {
   background-color: #100f15;
-  color: white;
+  color: $PrimaryTextColor;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -18,21 +19,18 @@ p {
 }
 
 ::ng-deep {
-  $input-main-color: white;
-  $input-label-color: white;
+  //mat-form section
+  $input-main-color: $PrimaryTextColor;
+  $input-label-color: $PrimaryTextColor;
   .ng-touched::-webkit-input-placeholder {
     color: $input-main-color;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    opacity: 1 !important;
   }
   .ng-untouched::-webkit-input-placeholder {
     color: $input-main-color;
   }
-  // mat-icon-stepper selected color change
-  .mat-step-header .mat-step-icon-selected,
-  .mat-step-header .mat-step-icon-state-done,
-  .mat-step-header .mat-step-icon-state-edit {
-    background-color: $input-main-color !important;
-  }
-
   // input outline color
   .mat-form-field-appearance-outline .mat-form-field-outline {
     color: $input-main-color !important;
@@ -44,8 +42,7 @@ p {
   }
 
   // mat-input error outline color
-  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
-    .mat-form-field-outline-thick {
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid {
     color: $input-main-color !important;
     opacity: 0.8 !important;
   }
@@ -108,35 +105,34 @@ mat-form-field {
 }
 
 .button {
-  background-color: white;
-  color: black;
+  background-color: $PrimaryContainerColor;
+  color: $SecondaryTextColor;
   margin: 0px auto;
   display: block;
   width: 130px;
 }
 
 .lock {
-  background: url(../../../../assets/svg/lock.svg) no-repeat scroll 0px 0px;
-  fill: white;
+  background: url(../../../../assets/svg/lock2.svg) no-repeat scroll 0px 0px;
   padding-left: 30px;
 }
 
 .user {
-  background: url(../../../../assets/svg/user.svg) no-repeat scroll 0px 0px;
+  background: url(../../../../assets/svg/user2.svg) no-repeat scroll 0px 0px;
   padding-left: 30px;
-  fill: white;
 }
 
 .forgot-pwd {
   margin-top: 20px;
   text-align: right;
   display: block;
-  color: white;
+  color: $PrimaryTextColor;
   text-decoration: none;
   &.forgot-pwd:hover {
-    color: palevioletred
+    color: palevioletred;
   }
 }
- input {
-   padding-left: 10px;
- }
+input {
+  padding-left: 10px;
+}
+
