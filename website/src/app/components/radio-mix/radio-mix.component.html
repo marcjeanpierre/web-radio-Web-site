@@ -1,4 +1,4 @@
-<div ng-controller="AppCtrl" ng-cloak>
+<!-- <div ng-controller="AppCtrl" ng-cloak>
     <mat-slider ng-model="vol" min="0" max="100" aria-label="volume" id="volume-slider" class="md-accent" md-vertical
         md-range></mat-slider>
     <h5>Volume</h5>
@@ -10,4 +10,23 @@
         </mat-slider>
         <h5>Master</h5>
     </div>
+</div> -->
+
+<div class="page-content">
+    <H1 class="title">My Mix title</H1>
+    <mat-card class="container">
+        <div class="bloc-mixage-title">
+            <H2 class="title">Mixage table</H2>
+            <H2 class="title">Informations</H2>
+        </div>
+        <jqxKnob [value]="60" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true"
+            [rotation]="'clockwise'" [marks]="marks" [labels]="labels" [progressBar]="progressBar" [pointer]="pointer">
+        </jqxKnob>
+        <div>
+            <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="7" [ticksFrequency]="5" [showMinorTicks]="true"
+                [minorTicksFrequency]="1" [showTickLabels]="false" #mirrorVerticalSlider [height]="300" [width]="50"
+                [orientation]="'vertical'">
+            </jqxSlider>
+        </div>
+    </mat-card>
 </div>

@@ -14,6 +14,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+//jqwidgets
+import { jqxKnobModule } from 'jqwidgets-ng/jqxknob';
+import { jqxSliderModule } from 'jqwidgets-ng/jqxslider';
+
 /* Components */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/authantification/login/login.component';
@@ -47,7 +51,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatIconModule,
     FormsModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    jqxKnobModule,
+    jqxSliderModule
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +64,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatTabsModule,
     MatIconModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    jqxKnobModule,
+    jqxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
