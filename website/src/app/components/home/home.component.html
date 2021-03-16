@@ -1,0 +1,99 @@
+<div class="page-content">
+    <app-header></app-header>
+    <mat-tab-group>
+        <mat-tab label="New">
+            <mat-card class="container">
+                <div class="information-title">
+                    <mat-card-title>Informations</mat-card-title>
+                    <mat-card class="information">
+                        <div class="information-container">
+                            <div class="left-information">
+                                <div>
+                                    <mat-form-field class="info-option" appearance="outline">
+                                        <mat-label>Title</mat-label>
+                                        <input matInput type="text" [(ngModel)]="Title">
+                                        <button mat-button *ngIf="Title" matSuffix mat-icon-button aria-label="Clear"
+                                            (click)="Title=''">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="info-option" appearance="outline">
+                                        <mat-label>Artist</mat-label>
+                                        <input matInput type="text" [(ngModel)]="Artist">
+                                        <button mat-button *ngIf="Artist" matSuffix mat-icon-button aria-label="Clear"
+                                            (click)="Artist=''">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="info-option" appearance="outline">
+                                        <mat-label>Album</mat-label>
+                                        <input matInput type="text" [(ngModel)]="Album">
+                                        <button mat-button *ngIf="Album" matSuffix mat-icon-button aria-label="Clear"
+                                            (click)="Album=''">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="right-information-container">
+                                <div class="right-information">
+                            </div>
+                                <div>
+                                    <mat-form-field class="info-option" appearance="outline">
+                                        <mat-label>Genre</mat-label>
+                                        <input matInput type="text" [(ngModel)]="Genre">
+                                        <button mat-button *ngIf="Genre" matSuffix mat-icon-button aria-label="Clear"
+                                            (click)="Genre=''">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="info-option" appearance="outline">
+                                        <mat-label>Year</mat-label>
+                                        <input matInput type="text" [(ngModel)]="Year">
+                                        <button mat-button *ngIf="Year" matSuffix mat-icon-button aria-label="Clear"
+                                            (click)="Year=''">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="setting-title">
+                    <mat-card-title>Settings</mat-card-title>
+                    <mat-card class="setting">
+                        <div class="setting-container">
+                            <div class="setting-item">
+                                <mat-card-content class="setting-item-value">Piste number :<input class= "number-of-piste" matInput type="number"></mat-card-content>
+                            </div>
+                            <div class="setting-item">
+                                <mat-card-content class="setting-item-value">Diffusion :<mat-slide-toggle class= "diffusion-option"></mat-slide-toggle></mat-card-content>
+                            </div>
+                            <div class="setting-item">
+                                <mat-card-content class="setting-item-value">Rec : <mat-checkbox class="rec-option"></mat-checkbox></mat-card-content>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <button mat-button class="validate" routerLink="/radioMix">Validate</button>
+            </mat-card>
+        </mat-tab>
+        <mat-tab label="Load">
+            <mat-card class="container-load">
+                <mat-card-title class="load-title">Recent mix</mat-card-title>
+                <mat-card class="load-item">
+                    <span class="cloud"></span>
+                    <a class="item-name" routerLink="/radioMix">My Mix 1</a>
+                    <label class="item-date">11/02/2021</label>
+                </mat-card>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</div>
