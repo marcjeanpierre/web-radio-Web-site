@@ -1,8 +1,6 @@
-@import "../../styles/variables.scss";
-
 .page-content {
   background-color: #100f15;
-  color: $PrimaryTextColor;
+  color: white;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -10,15 +8,14 @@
 
 .title {
   text-align: center;
-  color: $PrimaryTextColor;
+  color: white;
   font-weight: normal;
 }
 .container {
   margin: 20px 70px 70px 70px;
   padding: 20px 30px;
   height: 500px;
-  display: flex;
-  flex-direction: row;
+  display: block;
   background: rgba(196, 196, 196, 0.15);
   // box-shadow: 0px 4px 93px 10px rgb(0 0 0 / 97%);
   box-shadow: 0px 0px 15px 12px rgb(0 0 0 / 97%);
@@ -36,8 +33,8 @@
   .jqx-chart-label-text,
   .jqx-chart-tooltip-text,
   .jqx-chart-legend-text {
-    fill: $PrimaryTextColor !important;
-    color: $PrimaryTextColor !important;
+    fill: white !important;
+    color: white !important;
     font-size: 11px;
     font-family: Verdana;
   }
@@ -45,4 +42,53 @@
 
 .jqx-fill-state-normal {
   display: none !important;
+}
+
+.interface {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  padding-top: 2  0px;
+}
+
+.tranche-console {
+  height: 280px;
+  width: 90px;
+  border: 0.1em solid white;
+  margin: 0px 20px;
+  align-items: center;
+}
+
+.led-box {
+  height: 30px;
+  width: 25%;
+  margin: 10px auto;
+  float: left;
+  display: contents;
+}
+
+.led-green {
+  margin: 0 auto;
+  width: 10px;
+  height: 10px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  // box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+}
+
+.knob {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jqx-slider-left .jqx-rc-all .jqx-button .jqx-widget .jqx-fill-state-normal 
+.jqx-slider-button {
+  display: none !important;
+}
+
+.slide {
+  min-width: 50px !important;
+  width: 50px;
 }

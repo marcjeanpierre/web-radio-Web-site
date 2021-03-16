@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileModel } from '../../models/profile.model'
 
 @Component({
   selector: 'app-header',
@@ -12,4 +13,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public menu: ProfileModel[] = [
+    {
+        name: 'Log Out',
+        icon: ''
+    }];
 }

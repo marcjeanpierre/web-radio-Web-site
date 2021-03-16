@@ -6,12 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./radio-mix.component.scss']
 })
 export class RadioMixComponent implements OnInit {
-
+  tranche: string[] = [];
   constructor() { }
 
   ngOnInit(): void {
+  this.tranche.push('1');
+  // this.tranche.push('2');
+  // this.tranche.push('3');
+  // this.tranche.push('4');
+  // this.tranche.push('5');
+  // this.tranche.push('6');
   }
-
 //know props begin
   marks: any =
   {

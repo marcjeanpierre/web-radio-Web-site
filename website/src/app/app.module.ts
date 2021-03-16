@@ -13,6 +13,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
 
 //jqwidgets
 import { jqxKnobModule } from 'jqwidgets-ng/jqxknob';
@@ -53,7 +55,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatCheckboxModule,
     MatSlideToggleModule,
     jqxKnobModule,
-    jqxSliderModule
+    jqxSliderModule,
+    MatToolbarModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -66,7 +70,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatCheckboxModule,
     MatSlideToggleModule,
     jqxKnobModule,
-    jqxSliderModule
+    jqxSliderModule,
+    MatToolbarModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,53 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.theme {
+  color: white;
+  background-color: #100f15;
+  padding: 0px !important;
+  height: 40px;
+}
+
+.logo {
+  height: 100%;
+  border-radius: 4px;
+  margin: 0px 10px;
+}
+
+.profile {
+  height: 100%;
+}
+
+.icon-profile {
+  height: 100%;
+}
+
+.name {
+    padding-left: 40px;
+    color: white !important;
+    height: 100%;
+}
+
+.button-profile {
+    padding: 0;
+    height: 40px;
+    flex-shrink: 0;
+    line-height: 40px;
+    min-width: 60px;
+    font-size: 19px;
+    margin-left: 10px;
+    width: 90px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid white;
+    border-radius: 2px;
+    margin: 0px 10px;
+}
+
+.log-out {
+  position: absolute;
+  right: 0px;
+  margin-right: 10px;
+  vertical-align: middle;
+}

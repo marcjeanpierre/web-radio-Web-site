@@ -19,14 +19,38 @@
             <H2 class="title">Mixage table</H2>
             <H2 class="title">Informations</H2>
         </div>
-        <jqxKnob [value]="60" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true"
+        <div class="interface">
+            <div *ngFor="let item of tranche">
+                <div class="tranche-console">
+                    <div class="led-box">
+                        <div class="led-green"></div>
+                    </div>
+                    <div class="knob">
+                        <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                            [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
+                            [pointer]="pointer" [height]="50" [width]="50">
+                        </jqxKnob>
+                        <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                            [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
+                            [pointer]="pointer" [height]="50" [width]="50">
+                        </jqxKnob>
+                    </div>
+                    <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5"
+                        [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false"
+                       [height]="200" [width]="50" [orientation]="'vertical'" class="slider">
+                    </jqxSlider>
+                </div>
+            </div>
+
+        </div>
+        <!-- <jqxKnob [value]="60" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true"
             [rotation]="'clockwise'" [marks]="marks" [labels]="labels" [progressBar]="progressBar" [pointer]="pointer">
         </jqxKnob>
         <div>
-            <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="7" [ticksFrequency]="5" [showMinorTicks]="true"
+            <!-- <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="7" [ticksFrequency]="5" [showMinorTicks]="true"
                 [minorTicksFrequency]="1" [showTickLabels]="false" #mirrorVerticalSlider [height]="300" [width]="50"
                 [orientation]="'vertical'">
-            </jqxSlider>
-        </div>
-    </mat-card>
+            </jqxSlider> 
+</div> -->
+</mat-card>
 </div>
