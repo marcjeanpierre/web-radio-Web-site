@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-radio-mix',
@@ -7,15 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RadioMixComponent implements OnInit {
   tranche: string[] = [];
+  songs = new FormControl();
+  songList: string[]= [];
+  selected = "Song";
   constructor() { }
 
   ngOnInit(): void {
   this.tranche.push('1');
-  // this.tranche.push('2');
-  // this.tranche.push('3');
-  // this.tranche.push('4');
-  // this.tranche.push('5');
-  // this.tranche.push('6');
+  this.tranche.push('2');
+  this.tranche.push('3');
+  this.tranche.push('4');
+  this.tranche.push('5');
+  this.tranche.push('6');
+  this.songList = ['Paradis - Booba', 'OKLM - Booba', 'Boubli - Booba', 'Bouchon de liege - Kaaris']
   }
 //know props begin
   marks: any =
@@ -50,4 +55,7 @@ export class RadioMixComponent implements OnInit {
       size: '10%', offset: '50%'
   };
 //know props stop
+addTranche() {
+  this.tranche.push('new');
+}
 }
