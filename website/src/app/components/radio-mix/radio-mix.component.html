@@ -11,46 +11,110 @@
         <h5>Master</h5>
     </div>
 </div> -->
-
-<div class="page-content">
-    <H1 class="title">My Mix title</H1>
-    <mat-card class="container">
-        <div class="bloc-mixage-title">
-            <H2 class="title">Mixage table</H2>
-            <H2 class="title">Informations</H2>
-        </div>
-        <div class="interface">
-            <div *ngFor="let item of tranche">
-                <div class="tranche-console">
-                    <div class="led-box">
-                        <div class="led-green"></div>
-                    </div>
-                    <div class="knob">
-                        <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
-                            [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
-                            [pointer]="pointer" [height]="50" [width]="50">
-                        </jqxKnob>
-                        <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
-                            [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
-                            [pointer]="pointer" [height]="50" [width]="50">
-                        </jqxKnob>
-                    </div>
-                    <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5"
-                        [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false"
-                       [height]="200" [width]="50" [orientation]="'vertical'" class="slider">
-                    </jqxSlider>
-                </div>
+<div>
+    <app-header></app-header>
+    <div class="page-content">
+        <H1 class="title">My Mix title</H1>
+        <mat-card class="container">
+            <div class="bloc-mixage-title">
+                <H2 class="title">Mixage table</H2>
             </div>
+            <div class="interface">
+                <div class="option">
+                    <div class="box">
+                        <p class="tranche-name">Diffusion </p>
+                        <div class="led-box">
+                            <div>
+                                <div class="led-green"></div>
+                            </div>
+                        </div>
+                        <mat-slide-toggle class="slider-option"></mat-slide-toggle>
+                    </div>
+                    <div class="box">
+                        <p class="tranche-name">Rec </p>
+                        <div class="led-box">
+                            <div class="led-green"></div>
+                        </div>
+                        <mat-slide-toggle class="slider-option"></mat-slide-toggle>
+                    </div>
+                    <button class="save">Save</button>
+                </div>
+                <div>
+                    <div class="tranche-console mic">
+                        <p class="tranche-name">Mic </p>
+                        <div class="led-box">
+                            <div class="led-green space-mic"></div>
+                        </div>
+                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5"
+                            [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="335"
+                            [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
+                        </jqxSlider>
+                    </div>
+                    <div class="solo">
+                        <button class="btn-solo"></button>
+                        <label>Solo</label>
+                    </div>
+                    <div class="mute">
+                        <button class="btn-mute"></button>
+                        <label>Mute</label>
+                    </div>
+                </div>
+                <div class="item" *ngFor="let item of tranche; let i= index">
+                    <mat-select  matNativeControl class="songChoice" placeholder="Song">
+                        <mat-option *ngFor="let song of songList" [value]="song">{{song}}</mat-option>
+                    </mat-select>
+                    <div class="tranche-console">
+                        <p class="tranche-name">Sources {{i+1}} </p>
+                        <div class="led-box">
+                            <div class="led-green"></div>
+                        </div>
+                        <div class="knob">
+                            <label>Pan</label>
+                            <mat-slider class="slider"></mat-slider>
+                            <jqxKnob [value]="0" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                                [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
+                                [pointer]="pointer" [height]="50" [width]="50">
+                            </jqxKnob>
+                            <label class="frequency-name">High</label>
+                            <jqxKnob [value]="0" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                                [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
+                                [pointer]="pointer" [height]="50" [width]="50">
+                            </jqxKnob>
+                            <label class="frequency-name">Medium</label>
+                            <jqxKnob [value]="0" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                                [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
+                                [pointer]="pointer" [height]="50" [width]="50">
+                            </jqxKnob>
+                            <label class="frequency-name">Bass</label>
+                        </div>
+                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5"
+                            [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="135"
+                            [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
+                        </jqxSlider>
+                    </div>
+                    <div class="solo">
+                        <button class="btn-solo"></button>
+                        <label>Solo</label>
+                    </div>
+                    <div class="mute">
+                        <button class="btn-mute"></button>
+                        <label>Mute</label>
+                    </div>
+                    <!-- <label class="tranche-number">{{i}}</label> -->
+                </div>
+                <button class="btn-plus" (click)="addTranche()"><img class="plus "
+                        src="../../../assets/svg/plus.svg"></button>
 
-        </div>
-        <!-- <jqxKnob [value]="60" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true"
-            [rotation]="'clockwise'" [marks]="marks" [labels]="labels" [progressBar]="progressBar" [pointer]="pointer">
-        </jqxKnob>
-        <div>
-            <!-- <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="7" [ticksFrequency]="5" [showMinorTicks]="true"
-                [minorTicksFrequency]="1" [showTickLabels]="false" #mirrorVerticalSlider [height]="300" [width]="50"
-                [orientation]="'vertical'">
-            </jqxSlider> 
-</div> -->
-</mat-card>
+            </div>
+            <!-- <jqxKnob [value]="60" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true"
+        [rotation]="'clockwise'" [marks]="marks" [labels]="labels" [progressBar]="progressBar" [pointer]="pointer">
+    </jqxKnob>
+    <div>
+        <!-- <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="7" [ticksFrequency]="5" [showMinorTicks]="true"
+            [minorTicksFrequency]="1" [showTickLabels]="false" #mirrorVerticalSlider [height]="300" [width]="50"
+            [orientation]="'vertical'">
+        </jqxSlider> 
+    </div> -->
+        </mat-card>
+    </div>
 </div>
