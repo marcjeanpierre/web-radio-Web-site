@@ -1,16 +1,3 @@
-<!-- <div ng-controller="AppCtrl" ng-cloak>
-    <mat-slider ng-model="vol" min="0" max="100" aria-label="volume" id="volume-slider" class="md-accent" md-vertical
-        md-range></mat-slider>
-    <h5>Volume</h5>
-    <mat-slider md-discrete ng-model="bass" min="0" max="100" step="10" aria-label="bass" class="md-primary" md-vertical>
-    </mat-slider>
-    <h5>Bass</h5>
-    <div flex layout="column" layout-align="center center">
-        <mat-slider flex ng-model="master" md-discrete aria-label="Master" md-vertical step="10" ng-readonly="readonly">
-        </mat-slider>
-        <h5>Master</h5>
-    </div>
-</div> -->
 <div>
     <app-header></app-header>
     <div class="page-content">
@@ -50,13 +37,13 @@
                             [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
                         </jqxSlider>
                     </div>
-                    <div class="solo">
-                        <button class="btn-solo"></button>
-                        <label>Solo</label>
-                    </div>
                     <div class="mute">
                         <button class="btn-mute"></button>
                         <label>Mute</label>
+                    </div>
+                    <div class="solo">
+                        <button class="btn-solo"></button>
+                        <label>Solo</label>
                     </div>
                 </div>
                 <div class="item" *ngFor="let item of tranche; let i= index">
@@ -70,18 +57,18 @@
                         </div>
                         <div class="knob">
                             <label>Pan</label>
-                            <mat-slider class="slider"></mat-slider>
-                            <jqxKnob [value]="0" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                            <mat-slider min="0" max="10" step="1" value="5"class="slider"></mat-slider>
+                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
                                 [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
                                 [pointer]="pointer" [height]="50" [width]="50">
                             </jqxKnob>
                             <label class="frequency-name">High</label>
-                            <jqxKnob [value]="0" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
                                 [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
                                 [pointer]="pointer" [height]="50" [width]="50">
                             </jqxKnob>
                             <label class="frequency-name">Medium</label>
-                            <jqxKnob [value]="0" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
+                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
                                 [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
                                 [pointer]="pointer" [height]="50" [width]="50">
                             </jqxKnob>
@@ -92,29 +79,19 @@
                             [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
                         </jqxSlider>
                     </div>
-                    <div class="solo">
-                        <button class="btn-solo"></button>
-                        <label>Solo</label>
-                    </div>
                     <div class="mute">
                         <button class="btn-mute"></button>
                         <label>Mute</label>
                     </div>
-                    <!-- <label class="tranche-number">{{i}}</label> -->
+                    <div class="solo">
+                        <button class="btn-solo"></button>
+                        <label>Solo</label>
+                    </div>
                 </div>
                 <button class="btn-plus" (click)="addTranche()"><img class="plus "
                         src="../../../assets/svg/plus.svg"></button>
 
             </div>
-            <!-- <jqxKnob [value]="60" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true"
-        [rotation]="'clockwise'" [marks]="marks" [labels]="labels" [progressBar]="progressBar" [pointer]="pointer">
-    </jqxKnob>
-    <div>
-        <!-- <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="7" [ticksFrequency]="5" [showMinorTicks]="true"
-            [minorTicksFrequency]="1" [showTickLabels]="false" #mirrorVerticalSlider [height]="300" [width]="50"
-            [orientation]="'vertical'">
-        </jqxSlider> 
-    </div> -->
         </mat-card>
     </div>
 </div>
