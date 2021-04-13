@@ -18,8 +18,8 @@ const routes: Routes = [{
       component: LoginComponent
     },
     {
-      path: 'resetPassword',
-      component: ResetPasswordComponent
+      path: 'forgotPassword',
+      component: ForgotPasswordComponent
     },
     {
       path: 'home',
@@ -29,12 +29,11 @@ const routes: Routes = [{
       path: 'radioMix',
       component: RadioMixComponent
     },
-
-  ]},
-  {
-    path: 'forgotPassword',
-    component: ForgotPasswordComponent
-  }];
+    {
+      path: 'resetPassword',
+      component: ResetPasswordComponent
+    }]
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
