@@ -31,7 +31,6 @@
                 "input": "src",
                 "output": "/"
               }
-              
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -129,6 +128,10 @@
               "devServerTarget": "website:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
