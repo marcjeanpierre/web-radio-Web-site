@@ -21,8 +21,11 @@ export class HeaderComponent implements OnInit {
       icon: ''
     }];
   logout(): void {
-    this.authService.logout(localStorage.getItem('token'));
-    localStorage.setItem('token','');
-    this.router.navigateByUrl('/login');
+    this.authService.logout(localStorage.getItem('token'))
+    .pipe()
+    .subscribe(data => {
+      localStorage.setItem('token','');
+      this.router.navigateByUrl('/login');
+    });
   }
 }

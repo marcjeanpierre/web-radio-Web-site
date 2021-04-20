@@ -19,7 +19,10 @@ export class ForgotPasswordComponent implements OnInit {
   sendEmail(){
     this.sent = true;
     this.textButton = "Login"
-    this.authService.forgotPassword(this.email);
-    console.log('ok')
+    this.authService.forgotPassword(this.email)
+    .pipe()
+    .subscribe(data => {
+      console.log('ok')
+    });
   }
 }
