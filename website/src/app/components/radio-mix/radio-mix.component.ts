@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import Pizzicato from 'pizzicato'
 import Wad from 'web-audio-daw';
+import { SongService } from '../../services/song.service';
+import { SongInterface } from '../../types/song.types'
+
 @Component({
   selector: 'app-radio-mix',
   templateUrl: './radio-mix.component.html',
@@ -15,7 +18,7 @@ export class RadioMixComponent implements OnInit {
   // sound part
   voice: any;
   volumeValue: number = 10;
-  constructor() { }
+  constructor(private songService: SongService) { }
 
   ngOnInit(): void {
     this.tranche.push('1');
@@ -88,5 +91,22 @@ export class RadioMixComponent implements OnInit {
     this.voice.stop();
   }
 
-  
+public addBook(): void {
+  this.songService.getSongUrl("gs://web-radio-271a1.appspot.com/RATPI WORLD")
+  .then(url => {
+    this.playAudio(url);
+  })
+}
+
+playAudio(url: string){
+  let audio = new Audio();
+  audio.src = url;
+  audio.load();
+  audio.play();
+  setTimeout(() => 
+  {
+      audio.pause();
+  },
+  5000);
+}
 }

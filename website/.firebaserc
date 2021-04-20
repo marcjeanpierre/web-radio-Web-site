@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "web-radio-271a1": {
+      "hosting": {
+        "website": [
+          "web-radio-271a1"
+        ]
+      }
+    }
+  }
+}

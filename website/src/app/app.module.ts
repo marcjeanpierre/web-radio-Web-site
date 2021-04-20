@@ -31,6 +31,12 @@ import { HomeComponent } from './components/home/home.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
+// environment
+import  {  environment  }  from  '../environments/environment';
+// // firebase
+import  {  AngularFireModule  }  from  'angularfire2';
+import  {  AngularFireDatabaseModule  }  from  'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +66,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatToolbarModule,
     MatSelectModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
     ReactiveFormsModule
   ],
   exports: [
@@ -75,7 +84,8 @@ import { HeaderComponent } from './components/header/header.component';
     jqxKnobModule,
     jqxSliderModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
