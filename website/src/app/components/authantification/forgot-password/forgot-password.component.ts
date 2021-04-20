@@ -22,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.authService.forgotPassword(this.email)
     .pipe()
     .subscribe(data => {
-      console.log('ok')
+      console.log('Email envoyé.');
     });
   }
 }

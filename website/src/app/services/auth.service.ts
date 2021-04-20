@@ -23,7 +23,6 @@ export class AuthService {
   }
 
   forgotPassword(email: string): Observable<object> {
-    console.log(email);
     return this.httpClient.post("https://api-radio-world.herokuapp.com/admin/forgot-password", {'email': email });
   }
 }
