@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 /* Material */
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +31,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +59,9 @@ import { HeaderComponent } from './components/header/header.component';
     jqxKnobModule,
     jqxSliderModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatButtonModule,

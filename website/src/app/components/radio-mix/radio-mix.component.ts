@@ -58,4 +58,5 @@ export class RadioMixComponent implements OnInit {
 addTranche() {
   this.tranche.push('new');
 }
+
 }
