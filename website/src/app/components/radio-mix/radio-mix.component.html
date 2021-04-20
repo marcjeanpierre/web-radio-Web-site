@@ -32,22 +32,20 @@
                         <div class="led-box">
                             <div class="led-green space-mic"></div>
                         </div>
-                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5"
-                            [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="335"
-                            [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
+                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5" [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="335" [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
                         </jqxSlider>
                     </div>
                     <div class="mute">
-                        <button class="btn-mute"></button>
+                        <button class="btn-mute" (click)="deactivateMic()"></button>
                         <label>Mute</label>
                     </div>
                     <div class="solo">
-                        <button class="btn-solo"></button>
+                        <button class="btn-solo" (click)="activeMic()"></button>
                         <label>Solo</label>
                     </div>
                 </div>
                 <div class="item" *ngFor="let item of tranche; let i= index">
-                    <mat-select  matNativeControl class="songChoice" placeholder="Song">
+                    <mat-select matNativeControl class="songChoice" placeholder="Song">
                         <mat-option *ngFor="let song of songList" [value]="song">{{song}}</mat-option>
                     </mat-select>
                     <div class="tranche-console">
@@ -57,26 +55,19 @@
                         </div>
                         <div class="knob">
                             <label>Pan</label>
-                            <mat-slider min="0" max="10" step="1" value="5"class="slider"></mat-slider>
-                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
-                                [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
-                                [pointer]="pointer" [height]="50" [width]="50">
+                            <mat-slider min="0" max="10" step="1" value="5" class="slider"></mat-slider>
+                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="50" [width]="50">
                             </jqxKnob>
                             <label class="frequency-name">High</label>
-                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
-                                [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
-                                [pointer]="pointer" [height]="50" [width]="50">
+                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="50" [width]="50">
                             </jqxKnob>
                             <label class="frequency-name">Medium</label>
-                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480"
-                                [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar"
-                                [pointer]="pointer" [height]="50" [width]="50">
+                            <jqxKnob [value]="50" [min]="0" [max]="100" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="50" [width]="50">
                             </jqxKnob>
                             <label class="frequency-name">Bass</label>
                         </div>
-                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="10" [ticksFrequency]="5"
-                            [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="135"
-                            [width]="90" [orientation]="'vertical'" class="slider" [showButtons]="false">
+                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="volumeValue" [(ngModel)]="volumeValue" [ticksFrequency]="5" [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="135" [width]="90" [orientation]="'vertical'" class="slider"
+                            [showButtons]="false">
                         </jqxSlider>
                     </div>
                     <div class="mute">
