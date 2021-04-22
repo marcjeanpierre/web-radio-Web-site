@@ -38,6 +38,7 @@ import  {  environment  }  from  '../environments/environment';
 import  {  AngularFireModule  }  from  '@angular/fire';
 import  {  AngularFireDatabaseModule  }  from  '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     ResetPasswordComponent,
     HomeComponent,
     RadioMixComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
