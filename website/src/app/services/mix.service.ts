@@ -11,11 +11,11 @@ export class MixService {
 
   createMix(token:string, mix: MixInterface): Observable<object> {
     const headers = { 'Authorization': 'Bearer ' + token };
-    return this.httpClient.post('http://localhost:3001/mix/create-mix', mix, {headers});
+    return this.httpClient.post('https://api-radio-world.herokuapp.com/mix/create-mix', mix, {headers});
   }
 
   loadMix(token:string): Observable<object> {
     const headers = { 'Authorization': 'Bearer ' + token };
-    return this.httpClient.get('http://localhost:3001/mix/load-mix', {headers});
+    return this.httpClient.get('https://api-radio-world.herokuapp.com/mix/load-mix', {headers});
   }
 }
