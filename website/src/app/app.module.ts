@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 /* Material */
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +32,13 @@ import { HomeComponent } from './components/home/home.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
+// environment
+import  {  environment  }  from  '../environments/environment';
+// // firebase
+import  {  AngularFireModule  }  from  '@angular/fire';
+import  {  AngularFireDatabaseModule  }  from  '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +47,8 @@ import { HeaderComponent } from './components/header/header.component';
     ResetPasswordComponent,
     HomeComponent,
     RadioMixComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +67,13 @@ import { HeaderComponent } from './components/header/header.component';
     jqxKnobModule,
     jqxSliderModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     MatButtonModule,
@@ -72,7 +88,8 @@ import { HeaderComponent } from './components/header/header.component';
     jqxKnobModule,
     jqxSliderModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

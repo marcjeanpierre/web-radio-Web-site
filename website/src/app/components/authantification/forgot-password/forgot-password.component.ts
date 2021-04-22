@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -7,15 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  sent = false;
-  textButton = "Send"
-  constructor() { }
+  sent: boolean = false;
+  textButton: string = "Send";
+  email: string;
+  constructor(private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
-  sendEmail(){
-    this.sent = true;
-    this.textButton = "Login"
+  sendEmail() {
+    this.authService.forgotPassword(this.email)
+    .pipe()
+      .subscribe(data => {
+        this.toastr.success('Successfuly send');
+        this.sent = true;
+        this.textButton = "Login"
+      },
+        err => {
+          this.toastr.warning(err.error.message);
+
+        });
   }
 }

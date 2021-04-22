@@ -6,34 +6,33 @@ import { ForgotPasswordComponent } from './components/authantification/forgot-pa
 import { LoginComponent } from './components/authantification/login/login.component';
 import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
+import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 
 
-const routes: Routes = [{
-  path: '',
-  component: AppComponent,
-  children: [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    {
-      path: 'login',
-      component: LoginComponent
-    },
-    {
-      path: 'forgotPassword',
-      component: ForgotPasswordComponent
-    },
-    {
-      path: 'home',
-      component: HomeComponent
-    },
-    {
-      path: 'radioMix',
-      component: RadioMixComponent
-    },
-    {
-      path: 'resetPassword',
-      component: ResetPasswordComponent
-    }]
-}];
+const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'radioMix',
+    component: RadioMixComponent
+  },
+  {
+    path: 'resetPassword',
+    component: ResetPasswordComponent
+  },
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
