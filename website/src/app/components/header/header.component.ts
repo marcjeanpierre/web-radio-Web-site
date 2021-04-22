@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfileModel } from '../../models/profile.model'
 
@@ -9,10 +10,11 @@ import { ProfileModel } from '../../models/profile.model'
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private router: Router, private authService: AuthService) { }
+  firstname: string;
+  constructor(private router: Router, private authService: AuthService,  private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.firstname = localStorage.getItem('firstname');
   }
 
   public menu: ProfileModel[] = [
@@ -25,7 +27,8 @@ export class HeaderComponent implements OnInit {
     .pipe()
     .subscribe(data => {
       localStorage.setItem('token','');
-      this.router.navigateByUrl('/login');
+      this.toastr.success('Successfuly disconnected ');
     });
+    this.router.navigateByUrl('/login');
   }
 }

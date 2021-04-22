@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,18 +12,22 @@ export class ForgotPasswordComponent implements OnInit {
   sent: boolean = false;
   textButton: string = "Send";
   email: string;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
-  sendEmail(){
-    this.sent = true;
-    this.textButton = "Login"
+  sendEmail() {
     this.authService.forgotPassword(this.email)
     .pipe()
-    .subscribe(data => {
-      console.log('Email envoyé.');
-    });
+      .subscribe(data => {
+        this.toastr.success('Successfuly send');
+        this.sent = true;
+        this.textButton = "Login"
+      },
+        err => {
+          this.toastr.warning(err.error.message);
+
+        });
   }
 }

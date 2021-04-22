@@ -1,37 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import Pizzicato from 'pizzicato'
-import Wad from 'web-audio-daw';
 import { SongService } from '../../services/song.service';
-import { SongInterface } from '../../types/song.types'
-
+import { Tranche } from '../../interfaces/tranche.interface'
+import { MatSliderChange } from '@angular/material/slider';
+import { SongList } from '../../types/songList.type'
+import { SongElement } from '../../types/songElement.type'
+import { MixService } from 'src/app/services/mix.service';
 @Component({
   selector: 'app-radio-mix',
   templateUrl: './radio-mix.component.html',
   styleUrls: ['./radio-mix.component.scss']
 })
-export class RadioMixComponent implements OnInit {
-  tranche: string[] = [];
+export class RadioMixComponent implements OnInit ,OnDestroy {
+  tranche: Tranche[] = [];
+  micTranche: Tranche;
   songs = new FormControl();
-  songList: string[] = [];
+  songList: SongElement[] = [];
   selected = "Song";
+  defaultV = 10
+  title: string;
   // sound part
   voice: any;
-  volumeValue: number = 10;
-  constructor(private songService: SongService) { }
+  volumeValue: number = 100;
+  tuner: any;
+  constructor(private songService: SongService, private mixService:MixService) {
+
+  }
 
   ngOnInit(): void {
-    this.tranche.push('1');
-    this.tranche.push('2');
-    this.tranche.push('3');
-    this.tranche.push('4');
-    this.tranche.push('5');
-    this.tranche.push('6');
-    this.songList = ['Paradis - Booba', 'OKLM - Booba', 'Boubli - Booba', 'Bouchon de liege - Kaaris']
-    this.voice = new Pizzicato.Sound({
-      source: 'input',
-      options: { volume: 0.8 }
-    });
+    this.title = localStorage.getItem('title');
+    this.trancheByDefault(Number(localStorage.getItem('nbPiste')) || 6 );
+    this.songList;
+    this.micTranche = {
+      id: -1,
+      volume: 0,
+      panStereo: {
+        pan: 0
+      },
+      panEffect: new Pizzicato.Effects.StereoPanner({
+        value: 0
+      }),
+      equalizer: {
+        highGain: 0,
+        midHighGain: 0,
+        midLowGain: 0,
+        lowGain: 0
+      },
+      equalizerEffect: new Pizzicato.Effects.Quadrafuzz({
+        highGain: 0,
+        midHighGain: 0,
+        midLowGain: 0,
+        lowGain: 0
+      }),
+      mute: false,
+      solo: false,
+      isPlaying: false,
+      audioGroup: new Pizzicato.Group(),
+      asEffect: false,
+      audioSong: null
+    };
+    this.activeMic();
+    this.getSongs();
   }
   //know props begin
   marks: any =
@@ -65,48 +95,281 @@ export class RadioMixComponent implements OnInit {
       type: 'circle', style: { fill: { color: '#a4a3a3', gradientType: "linear", gradientStops: [[0, 0.5], [50, 0.6], [100, 1]] }, stroke: '#333' },
       size: '10%', offset: '50%'
     };
-  //know props stop
-  addTranche() {
-    this.tranche.push('new');
+
+
+  ngOnDestroy(){
+    this.micTranche.audioGroup.stop();
+    this.micTranche.audioGroup=null;
+    this.tranche.map((item,index) => {
+      item.audioGroup.stop();
+      item.audioGroup=null
+    })
   }
-  setVolume(value: number) {
-    this.voice.setVolume(value);
-  }
-  activeMic() {
-    if (!this.voice) {
-      this.voice = new Wad({
-        source: 'mic'
+
+
+  trancheByDefault(numberOfTranche: number): void {
+    if (!numberOfTranche) {
+      numberOfTranche = 6
+    }
+
+    for (let i = 1; i <= numberOfTranche; i++) {
+      this.tranche.push({
+        id: i,
+        volume: 0,
+        panStereo: {
+          pan: 0
+        },
+        panEffect: new Pizzicato.Effects.StereoPanner({
+          value: 0
+        }),
+        equalizer: {
+          highGain: 0,
+          midHighGain: 0,
+          midLowGain: 0,
+          lowGain: 0
+        },
+        equalizerEffect: new Pizzicato.Effects.Quadrafuzz({
+          highGain: 0,
+          midHighGain: 0,
+          midLowGain: 0,
+          lowGain: 0
+        }),
+        mute: false,
+        solo: false,
+        isPlaying: false,
+        asEffect: false,
+        audioGroup: new Pizzicato.Group(),
+        audioSong: null
+
       });
     }
-    // You must give your browser permission to use your microphone before calling play().
-    this.voice.play()
   }
 
-  deactivateMic() {
-    if (!this.voice) {
-      this.voice = new Wad({
-        source: 'mic'
-      });
+
+  addTranche(): void {
+    this.tranche.push({
+      id: this.tranche.length + 1,
+      volume: 0,
+      panStereo: {
+        pan: 0
+      },
+      panEffect: new Pizzicato.Effects.StereoPanner({
+        value: 0
+      }),
+      equalizer: {
+        highGain: 0,
+        midHighGain: 0,
+        midLowGain: 0,
+        lowGain: 0
+      },
+      equalizerEffect: new Pizzicato.Effects.Quadrafuzz({
+        highGain: 0,
+        midHighGain: 0,
+        midLowGain: 0,
+        lowGain: 0
+      }),
+      mute: false,
+      solo: false,
+      isPlaying: false,
+      asEffect: false,
+      audioGroup: new Pizzicato.Group(),
+      audioSong: null
+
+    });
+  }
+
+
+  setVolume(idTranche: number): void {
+    if (!this.tranche[idTranche].mute) {
+      this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
     }
-    this.voice.stop();
   }
 
-public addBook(): void {
-  this.songService.getSongUrl("gs://web-radio-271a1.appspot.com/RATPI WORLD")
-  .then(url => {
-    this.playAudio(url);
-  })
-}
 
-playAudio(url: string){
-  let audio = new Audio();
-  audio.src = url;
-  audio.load();
-  audio.play();
-  setTimeout(() => 
-  {
-      audio.pause();
-  },
-  5000);
-}
+  setVolumeMic(): void {
+    if (!this.micTranche.mute) {
+      this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+    }
+  }
+
+
+  setHigh(idTranche: number, event: any): void {
+    if (this.tranche[idTranche].asEffect) {
+      this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].equalizerEffect);
+      this.tranche[idTranche].asEffect = false;
+    }
+    this.tranche[idTranche].equalizer.highGain = event.args.value / 100;
+    this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer)
+    this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
+    this.tranche[idTranche].asEffect = true;
+    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume - this.tranche[idTranche].equalizer.highGain;
+  }
+
+
+  setMedium(idTranche: number, event: any): void {
+    if (this.tranche[idTranche].asEffect) {
+      this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].equalizerEffect);
+      this.tranche[idTranche].asEffect = false;
+    }
+    this.tranche[idTranche].equalizer.midHighGain = event.args.value / 100;
+    this.tranche[idTranche].equalizer.midLowGain = event.args.value / 100;
+    this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer)
+    this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
+    this.tranche[idTranche].asEffect = true;
+    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume - this.tranche[idTranche].equalizer.midHighGain - this.tranche[idTranche].equalizer.midLowGain;
+  }
+
+
+  setBass(idTranche: number, event: any) {
+    if (this.tranche[idTranche].asEffect) {
+      this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].equalizerEffect);
+      this.tranche[idTranche].asEffect = false;
+    }
+    this.tranche[idTranche].equalizer.lowGain = event.args.value / 100;
+    this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
+    this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
+    this.tranche[idTranche].asEffect = true;
+    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume - this.tranche[idTranche].equalizer.lowGain;
+  }
+
+
+  setPan(idTranche: number, event: MatSliderChange): void {
+    if (this.tranche[idTranche].asEffect) {
+      this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].panEffect);
+      this.tranche[idTranche].asEffect = false;
+    }
+    this.tranche[idTranche].panStereo.pan = event.value / 10;
+    this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
+    this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
+    this.tranche[idTranche].asEffect = true;
+    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume;
+  }
+
+
+  micOn(): void {
+    if (this.micTranche.solo && this.micTranche.mute) {
+      this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+    }
+    this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+    this.tranche.map(x => {
+      this.onMute(x.id - 1);
+    })
+    this.micTranche.solo = this.micTranche.solo ? false : true;
+  }
+
+
+  micOff(): void {
+    if (!this.micTranche.mute) {
+      this.micTranche.audioGroup.volume = 0;
+      this.micTranche.mute = true;
+    }
+    else {
+      this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+      this.micTranche.mute = false;
+    }
+  }
+
+
+  activeMic(): void {
+    this.micTranche.audioGroup = new Pizzicato.Sound({
+      source: 'input',
+      options: { volume: 0.8 }
+    }, () => {
+      this.micTranche.audioGroup.volume = this.micTranche.volume;
+      this.micTranche.audioGroup.play();
+    });
+  }
+
+
+  deactivateMic(): void {
+    this.micTranche.audioGroup.stop();
+  }
+
+
+  play(idTranche: number, url: string): void {
+    this.tranche[idTranche].audioGroup.stop()
+    this.tranche[idTranche].audioGroup = new Pizzicato.Group()
+    this.tranche[idTranche].audioGroup.addSound(new Pizzicato.Sound(
+      url, () => {
+          this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
+          this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
+          this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
+          this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
+          this.tranche[idTranche].audioSong = new Pizzicato.Sound(url);
+        this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume /10;
+        this.tranche[idTranche].audioGroup.play()
+      }));
+  }
+
+
+  onMute(idTranche: number): void {
+    if (this.tranche[idTranche].mute) {
+      this.unMute(idTranche);
+    }
+    else {
+      this.mute(idTranche);
+    }
+  }
+
+
+  mute(idTranche: number): void {
+    this.tranche[idTranche].audioGroup.volume = 0
+    this.tranche[idTranche].mute = true;
+  }
+
+
+  unMute(idTranche: number): void {
+    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
+    this.tranche[idTranche].mute = false;
+  }
+
+
+  onSolo(idTranche: number): void {
+    if (this.tranche[idTranche].solo && this.tranche[idTranche].mute) {
+      this.unMute(idTranche);
+    }
+    if (this.tranche[idTranche].solo) {
+      this.unSolo(idTranche);
+    }
+    else {
+      this.solo(idTranche);
+    }
+  }
+
+
+  solo(idTranche: number): void {
+    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
+    this.tranche.map(x => {
+      if (!x.solo && x.id - 1 !== idTranche)
+        this.onMute(x.id - 1);
+    })
+    this.tranche[idTranche].solo = true;
+  }
+
+
+  unSolo(idTranche: number): void {
+    this.tranche.map(x => {
+      if (!x.solo && x.id - 1 !== idTranche)
+        this.onMute(x.id - 1);
+    });
+    this.tranche[idTranche].solo = false;
+  }
+
+
+  // song fonction 
+  getSongs(): void {
+    this.songService.getSongs(localStorage.getItem('token'))
+      .pipe()
+      .subscribe((data: SongList) => {
+        for (let i = 0; i < data.songs.length; i++) {
+          let elem: SongElement = { artist: '', title: '', genre: '', time: '', url: '' };
+          elem.artist = data.songs[i].artist;
+          elem.title = data.songs[i].title;
+          elem.genre = data.songs[i].genre;
+          elem.time = data.songs[i].time;
+          elem.url = data.songs[i].url;
+          this.songList.push(elem);
+        }
+      })
+  }
 }

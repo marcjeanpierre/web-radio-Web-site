@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 /* Material */
 import { MatInputModule } from '@angular/material/input';
@@ -34,9 +35,9 @@ import { HeaderComponent } from './components/header/header.component';
 // environment
 import  {  environment  }  from  '../environments/environment';
 // // firebase
-import  {  AngularFireModule  }  from  'angularfire2';
-import  {  AngularFireDatabaseModule  }  from  'angularfire2/database';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+import  {  AngularFireModule  }  from  '@angular/fire';
+import  {  AngularFireDatabaseModule  }  from  '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     MatButtonModule,
