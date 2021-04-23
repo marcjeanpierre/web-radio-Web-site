@@ -361,7 +361,6 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
   unSolo(idTranche: number): void {
     if(this.soloAll <= 1  ) {
       this.tranche.map(x => {
-        console.log(x)
         if (!x.solo && x.id - 1 !== idTranche && !x.lastMute){
           this.unMute(x.id-1);
         }
