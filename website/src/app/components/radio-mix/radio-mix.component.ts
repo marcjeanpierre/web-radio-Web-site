@@ -24,6 +24,7 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
   voice: any;
   volumeValue: number = 100;
   tuner: any;
+  soloAll = 0;
   constructor(private songService: SongService, private mixService:MixService) {
 
   }
@@ -58,7 +59,8 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
       isPlaying: false,
       audioGroup: new Pizzicato.Group(),
       asEffect: false,
-      audioSong: null
+      audioSong: null,
+      lastMute: false
     };
     this.activeMic();
     this.getSongs();
@@ -139,7 +141,9 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
         isPlaying: false,
         asEffect: false,
         audioGroup: new Pizzicato.Group(),
+        lastMute: false,
         audioSong: null
+        
 
       });
     }
@@ -173,7 +177,9 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
       isPlaying: false,
       asEffect: false,
       audioGroup: new Pizzicato.Group(),
-      audioSong: null
+      audioSong: null,
+      lastMute: false
+
 
     });
   }
@@ -315,19 +321,21 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
   mute(idTranche: number): void {
     this.tranche[idTranche].audioGroup.volume = 0
     this.tranche[idTranche].mute = true;
+
   }
 
 
   unMute(idTranche: number): void {
     this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
     this.tranche[idTranche].mute = false;
+
   }
 
 
   onSolo(idTranche: number): void {
-    if (this.tranche[idTranche].solo && this.tranche[idTranche].mute) {
-      this.unMute(idTranche);
-    }
+    // if (this.tranche[idTranche].solo && this.tranche[idTranche].mute) {
+    //   this.unMute(idTranche);
+    // }
     if (this.tranche[idTranche].solo) {
       this.unSolo(idTranche);
     }
@@ -340,19 +348,30 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
   solo(idTranche: number): void {
     this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
     this.tranche.map(x => {
-      if (!x.solo && x.id - 1 !== idTranche)
-        this.onMute(x.id - 1);
+      x.lastMute = x.mute
+      if (!x.solo && x.id - 1 !== idTranche && !x.solo) {
+        this.mute(x.id - 1);
+      }
     })
     this.tranche[idTranche].solo = true;
+    this.soloAll++;
   }
 
 
   unSolo(idTranche: number): void {
-    this.tranche.map(x => {
-      if (!x.solo && x.id - 1 !== idTranche)
-        this.onMute(x.id - 1);
-    });
+    if(this.soloAll <= 1  ) {
+      this.tranche.map(x => {
+        if (!x.solo && x.id - 1 !== idTranche && !x.lastMute){
+          this.unMute(x.id-1);
+        }
+      });
+    }
+    if(this.tranche[idTranche].mute) {
+      this.tranche[idTranche].audioGroup.volume =0;
+    }
     this.tranche[idTranche].solo = false;
+    this.soloAll--;
+      
   }
 
 
