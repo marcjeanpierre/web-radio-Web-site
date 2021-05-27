@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
+        "all-i": "npm i pizzicato",
         "start": "ng serve",
         "build": "ng build",
         "test": "ng test",
@@ -27,6 +28,7 @@
         "firebase": "^7.24.0",
         "jqwidgets-ng": "^12.0.1",
         "ngx-toastr": "^13.2.1",
+        "pizzicato": "^0.6.4",
         "rxjs": "~6.5.5",
         "tslib": "^2.0.0",
         "zone.js": "~0.10.3"

@@ -179,8 +179,6 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
       audioGroup: new Pizzicato.Group(),
       audioSong: null,
       lastMute: false
-
-
     });
   }
 

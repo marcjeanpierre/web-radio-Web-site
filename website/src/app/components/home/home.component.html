@@ -90,8 +90,9 @@
                 <mat-card class="load-item " *ngIf="loadMixLen===0">
                     <h3>Aucun Mix :/</h3>
                 </mat-card>
-                <mat-card class="load-item " *ngFor="let item of loadMix ">
+                <mat-card class="load-item" *ngFor="let item of loadMix ">
                     <span class="cloud "></span>
+                    <!-- <img class="cloud" src="../../../assets/png/cloud2.png"> -->
                     <a class="item-name " routerLink="/radioMix " (click)="load(item.title, item.nbPiste)">{{item.title}}</a>
                     <label class="item-date ">{{item.year}}</label>
                 </mat-card>

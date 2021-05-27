@@ -120,6 +120,7 @@
     height: 500px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
   }
   
   .load-title {
@@ -138,7 +139,10 @@
     background: url(../../../assets/svg/cloud.svg) no-repeat scroll 0px 0px;
     padding-left: 50px;
     padding-bottom: 20px;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
+    // height: 30px;
+    // width: 30px;
+    fill: white;
   }
   .item-name {
     text-decoration: none;

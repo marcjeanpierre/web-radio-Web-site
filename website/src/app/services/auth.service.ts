@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Admin } from '../interfaces/admin.interface'
 import { AdminAuth } from '../types/adminAuth.type';
+import {ApiUrl} from '../configuration/config'
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   login(admin: Admin): Observable<object> {
-    return this.httpClient.post("https://api-radio-world.herokuapp.com/admin/login", {
+    return this.httpClient.post(ApiUrl+"/admin/login", {
       'email': admin.email,
       'password': admin.password
     });
@@ -19,10 +20,10 @@ export class AuthService {
 
   logout(token: string): Observable<object> {
     const headers = { 'Authorization': 'Bearer ' + token };
-    return this.httpClient.delete("https://api-radio-world.herokuapp.com/admin/logout", { headers });
+    return this.httpClient.delete(ApiUrl+"/admin/logout", { headers });
   }
 
   forgotPassword(email: string): Observable<object> {
-    return this.httpClient.post("https://api-radio-world.herokuapp.com/admin/forgot-password", {'email': email });
+    return this.httpClient.post(ApiUrl+"/admin/forgot-password", {'email': email });
   }
 }

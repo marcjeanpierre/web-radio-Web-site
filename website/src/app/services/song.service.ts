@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { ApiUrl } from '../configuration/config';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class SongService {
 
   getSongs(token: string): Observable<object> {
     const headers = { 'Authorization': 'Bearer ' + token };
-        return this.httpClient.get("https://api-radio-world.herokuapp.com/song/getSongs", { headers });
+        return this.httpClient.get(ApiUrl+"/song/getSongs", { headers });
   }
 }
 
