@@ -26,9 +26,13 @@ export class HeaderComponent implements OnInit {
     this.authService.logout(localStorage.getItem('token'))
     .pipe()
     .subscribe(data => {
-      localStorage.setItem('token','');
+      localStorage.removeItem('token');
+      localStorage.removeItem('title');
+      localStorage.removeItem('nbPiste');
+      localStorage.removeItem('firstname');
       this.toastr.success('Successfuly disconnected ');
+      this.router.navigateByUrl('/login');
     });
-    this.router.navigateByUrl('/login');
+    
   }
 }

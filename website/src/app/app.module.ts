@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -33,10 +33,10 @@ import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
 // environment
-import  {  environment  }  from  '../environments/environment';
+import { environment } from '../environments/environment';
 // // firebase
-import  {  AngularFireModule  }  from  '@angular/fire';
-import  {  AngularFireDatabaseModule  }  from  '@angular/fire/database';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 @NgModule({

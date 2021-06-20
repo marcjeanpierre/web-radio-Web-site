@@ -26,4 +26,9 @@ export class AuthService {
   forgotPassword(email: string): Observable<object> {
     return this.httpClient.post(ApiUrl+"/admin/forgot-password", {'email': email });
   }
+
+  resetPassword(token: string, password: string): Observable<object> {
+    const headers = { 'Authorization': 'Bearer ' + token };
+    return this.httpClient.post(ApiUrl+"/customer/reset", {'password': password },{ headers });
+  }
 }

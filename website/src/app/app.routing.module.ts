@@ -7,7 +7,7 @@ import { LoginComponent } from './components/authantification/login/login.compon
 import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
-
+import { AuthGuard } from './guards/auth.guard'
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,11 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent, canActivate:[AuthGuard]
   },
   {
     path: 'radioMix',
-    component: RadioMixComponent
+    component: RadioMixComponent, canActivate:[AuthGuard]
   },
   {
     path: 'resetPassword',
