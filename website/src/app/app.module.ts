@@ -24,10 +24,10 @@ import { jqxSliderModule } from 'jqwidgets-ng/jqxslider';
 
 /* Components */
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/authantification/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ForgotPasswordComponent } from './components/authantification/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';

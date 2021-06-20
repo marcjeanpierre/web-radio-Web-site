@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import Pizzicato from 'pizzicato'
 import { SongService } from '../../services/song.service';
 import { Tranche } from '../../interfaces/tranche.interface'

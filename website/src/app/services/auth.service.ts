@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Admin } from '../interfaces/admin.interface'
-import { AdminAuth } from '../types/adminAuth.type';
 import {ApiUrl} from '../configuration/config'
 @Injectable({
   providedIn: 'root'
