@@ -249,26 +249,26 @@ export class RadioMixComponent implements OnInit, OnDestroy {
 
 
   micOn(): void {
-    if(this.micTranche.solo) {
-      if(this.micTranche.mute) {
+    if (this.micTranche.solo) {
+      if (this.micTranche.mute) {
         this.micTranche.audioGroup.volume = 0;
       }
       this.tranche.map(x => {
-        if(!this.tranche[x.id - 1].mute) {
+        if (!this.tranche[x.id - 1].mute) {
           this.tranche[x.id - 1].audioGroup.volume = this.tranche[x.id - 1].volume / 10;
         }
       })
-    } 
+    }
     else {
       this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
       this.tranche.map(x => {
-        if(!this.tranche[x.id - 1].solo) {
+        if (!this.tranche[x.id - 1].solo) {
           this.tranche[x.id - 1].audioGroup.volume = 0;
         }
       })
-      
+
     }
-    
+
     this.micTranche.solo = this.micTranche.solo ? false : true;
   }
 
@@ -292,20 +292,20 @@ export class RadioMixComponent implements OnInit, OnDestroy {
     }, () => {
       navigator.permissions.query({ name: 'microphone' }).then((permissionStatus) => {
         do {
-          if(permissionStatus.state === 'granted') {
+          if (permissionStatus.state === 'granted') {
             this.toaster.success('You microphone is working')
             this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
             this.micTranche.audioGroup.play();
-          }else {
+          } else {
             this.toaster.warning('You microphone is not working, we need your authorization for using your mic')
           }
-          
-        }while(permissionStatus.state !== 'granted')
-      }).catch( err => {
+
+        } while (permissionStatus.state !== 'granted')
+      }).catch(err => {
         this.toaster.warning("we need your authorization for using your mic")
-          console.log("u got an error:" + err)
+        console.log("u got an error:" + err)
       });
-   })
+    })
   }
 
 
@@ -388,7 +388,7 @@ export class RadioMixComponent implements OnInit, OnDestroy {
       });
       if (this.tranche[idTranche].mute) {
         this.tranche[idTranche].audioGroup.volume = 0;
-      } 
+      }
     }
     else {
       this.tranche[idTranche].audioGroup.volume = 0;
