@@ -7,12 +7,13 @@ import { MatSliderChange } from '@angular/material/slider';
 import { SongList } from '../../types/songList.type'
 import { SongElement } from '../../types/songElement.type'
 import { MixService } from 'src/app/services/mix.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-radio-mix',
   templateUrl: './radio-mix.component.html',
   styleUrls: ['./radio-mix.component.scss']
 })
-export class RadioMixComponent implements OnInit ,OnDestroy {
+export class RadioMixComponent implements OnInit, OnDestroy {
   tranche: Tranche[] = [];
   micTranche: Tranche;
   songs = new FormControl();
@@ -25,13 +26,13 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
   volumeValue: number = 100;
   tuner: any;
   soloAll = 0;
-  constructor(private songService: SongService, private mixService:MixService) {
+  constructor(private songService: SongService, private mixService: MixService, private toaster: ToastrService) {
 
   }
 
   ngOnInit(): void {
     this.title = localStorage.getItem('title');
-    this.trancheByDefault(Number(localStorage.getItem('nbPiste')) || 6 );
+    this.trancheByDefault(Number(localStorage.getItem('nbPiste')) || 6);
     this.songList;
     this.micTranche = {
       id: -1,
@@ -60,7 +61,6 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
       audioGroup: new Pizzicato.Group(),
       asEffect: false,
       audioSong: null,
-      lastMute: false
     };
     this.activeMic();
     this.getSongs();
@@ -99,12 +99,12 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
     };
 
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.micTranche.audioGroup.stop();
-    this.micTranche.audioGroup=null;
-    this.tranche.map((item,index) => {
+    this.micTranche.audioGroup = null;
+    this.tranche.map((item, index) => {
       item.audioGroup.stop();
-      item.audioGroup=null
+      item.audioGroup = null
     })
   }
 
@@ -141,9 +141,8 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
         isPlaying: false,
         asEffect: false,
         audioGroup: new Pizzicato.Group(),
-        lastMute: false,
         audioSong: null
-        
+
 
       });
     }
@@ -177,14 +176,13 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
       isPlaying: false,
       asEffect: false,
       audioGroup: new Pizzicato.Group(),
-      audioSong: null,
-      lastMute: false
+      audioSong: null
     });
   }
 
 
   setVolume(idTranche: number): void {
-    if (!this.tranche[idTranche].mute) {
+    if (!this.tranche[idTranche].mute && this.soloAll === 0) {
       this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
     }
   }
@@ -251,13 +249,26 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
 
 
   micOn(): void {
-    if (this.micTranche.solo && this.micTranche.mute) {
+    if(this.micTranche.solo) {
+      if(this.micTranche.mute) {
+        this.micTranche.audioGroup.volume = 0;
+      }
+      this.tranche.map(x => {
+        if(!this.tranche[x.id - 1].mute) {
+          this.tranche[x.id - 1].audioGroup.volume = this.tranche[x.id - 1].volume / 10;
+        }
+      })
+    } 
+    else {
       this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+      this.tranche.map(x => {
+        if(!this.tranche[x.id - 1].solo) {
+          this.tranche[x.id - 1].audioGroup.volume = 0;
+        }
+      })
+      
     }
-    this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
-    this.tranche.map(x => {
-      this.onMute(x.id - 1);
-    })
+    
     this.micTranche.solo = this.micTranche.solo ? false : true;
   }
 
@@ -279,9 +290,22 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
       source: 'input',
       options: { volume: 0.8 }
     }, () => {
-      this.micTranche.audioGroup.volume = this.micTranche.volume;
-      this.micTranche.audioGroup.play();
-    });
+      navigator.permissions.query({ name: 'microphone' }).then((permissionStatus) => {
+        do {
+          if(permissionStatus.state === 'granted') {
+            this.toaster.success('You microphone is working')
+            this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+            this.micTranche.audioGroup.play();
+          }else {
+            this.toaster.warning('You microphone is not working, we need your authorization for using your mic')
+          }
+          
+        }while(permissionStatus.state !== 'granted')
+      }).catch( err => {
+        this.toaster.warning("we need your authorization for using your mic")
+          console.log("u got an error:" + err)
+      });
+   })
   }
 
 
@@ -295,12 +319,12 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
     this.tranche[idTranche].audioGroup = new Pizzicato.Group()
     this.tranche[idTranche].audioGroup.addSound(new Pizzicato.Sound(
       url, () => {
-          this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
-          this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
-          this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
-          this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
-          this.tranche[idTranche].audioSong = new Pizzicato.Sound(url);
-        this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume /10;
+        this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
+        this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
+        this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
+        this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
+        this.tranche[idTranche].audioSong = new Pizzicato.Sound(url);
+        this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
         this.tranche[idTranche].audioGroup.play()
       }));
   }
@@ -324,31 +348,30 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
 
 
   unMute(idTranche: number): void {
-    this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
+    if (this.soloAll === 0) {
+      this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
+    }
     this.tranche[idTranche].mute = false;
 
   }
 
 
   onSolo(idTranche: number): void {
-    // if (this.tranche[idTranche].solo && this.tranche[idTranche].mute) {
-    //   this.unMute(idTranche);
-    // }
     if (this.tranche[idTranche].solo) {
       this.unSolo(idTranche);
     }
     else {
       this.solo(idTranche);
     }
+    console.log(this.soloAll)
   }
 
 
   solo(idTranche: number): void {
     this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
     this.tranche.map(x => {
-      x.lastMute = x.mute
-      if (!x.solo && x.id - 1 !== idTranche && !x.solo) {
-        this.mute(x.id - 1);
+      if (!x.solo && x.id - 1 !== idTranche) {
+        this.tranche[x.id - 1].audioGroup.volume = 0
       }
     })
     this.tranche[idTranche].solo = true;
@@ -357,19 +380,22 @@ export class RadioMixComponent implements OnInit ,OnDestroy {
 
 
   unSolo(idTranche: number): void {
-    if(this.soloAll <= 1  ) {
+    if (this.soloAll === 1) {
       this.tranche.map(x => {
-        if (!x.solo && x.id - 1 !== idTranche && !x.lastMute){
-          this.unMute(x.id-1);
+        if (!x.solo && !x.mute) {
+          this.tranche[x.id - 1].audioGroup.volume = this.tranche[x.id - 1].volume / 10;
         }
       });
+      if (this.tranche[idTranche].mute) {
+        this.tranche[idTranche].audioGroup.volume = 0;
+      } 
     }
-    if(this.tranche[idTranche].mute) {
-      this.tranche[idTranche].audioGroup.volume =0;
+    else {
+      this.tranche[idTranche].audioGroup.volume = 0;
     }
     this.tranche[idTranche].solo = false;
     this.soloAll--;
-      
+
   }
 
 
