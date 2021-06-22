@@ -1,0 +1,25 @@
+<div class="page-content">
+    <div class="container">
+        <div class="main-section">
+            <div class="form">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <img class="logo" src="assets/png/logo.png">
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="user"></span>Username</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="lock"></span>Password</mat-label>
+                            <input matInput type="password" formControlName="password">
+                        </mat-form-field>
+                    </div>
+                    <button mat-button class="button" type="submit">Connect</button>
+                    <a routerLink="/forgotPassword" class="forgot-pwd">Forgot Password ?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

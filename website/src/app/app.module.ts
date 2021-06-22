@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -24,19 +24,19 @@ import { jqxSliderModule } from 'jqwidgets-ng/jqxslider';
 
 /* Components */
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/authantification/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ForgotPasswordComponent } from './components/authantification/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/authantification/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
 // environment
-import  {  environment  }  from  '../environments/environment';
+import { environment } from '../environments/environment';
 // // firebase
-import  {  AngularFireModule  }  from  '@angular/fire';
-import  {  AngularFireDatabaseModule  }  from  '@angular/fire/database';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 @NgModule({
