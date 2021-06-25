@@ -1,89 +1,87 @@
-<div>
-    <app-header></app-header>
-    <div class="page-content">
-        <H1 class="title">{{title}}</H1>
-        <mat-card class="container">
-            <div class="bloc-mixage-title">
-                <H2 class="title">Mixage table</H2>
+<!-- <app-header></app-header> -->
+<div class="page-content">
+    <mat-card class="container">
+        <div class="bloc-mixage-title">
+            <H2 class="title">{{title}}</H2>
+            <!-- <H2 class="title">Mixage table</H2> -->
+        </div>
+        <div class="interface">
+            <div class="option">
+                <div class="box">
+                    <p class="tranche-name">Diffusion </p>
+                    <div class="led-box">
+                        <div>
+                            <div class="led-green"></div>
+                        </div>
+                    </div>
+                    <mat-slide-toggle class="slider-option"></mat-slide-toggle>
+                </div>
+                <div class="box">
+                    <p class="tranche-name">Rec </p>
+                    <div class="led-box">
+                        <div class="led-green"></div>
+                    </div>
+                    <mat-slide-toggle class="slider-option"></mat-slide-toggle>
+                </div>
+                <button class="save" (click)="save()">Save</button>
             </div>
-            <div class="interface">
-                <div class="option">
-                    <div class="box">
-                        <p class="tranche-name">Diffusion </p>
-                        <div class="led-box">
-                            <div>
-                                <div class="led-green"></div>
-                            </div>
-                        </div>
-                        <mat-slide-toggle class="slider-option"></mat-slide-toggle>
+            <div>
+                <div class="tranche-console mic">
+                    <p class="tranche-name">Mic </p>
+                    <div class="led-box">
+                        <div class="led-green space-mic"></div>
                     </div>
-                    <div class="box">
-                        <p class="tranche-name">Rec </p>
-                        <div class="led-box">
-                            <div class="led-green"></div>
-                        </div>
-                        <mat-slide-toggle class="slider-option"></mat-slide-toggle>
-                    </div>
-                    <button class="save">Save</button>
+                    <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="micTranche.volume" [(ngModel)]="micTranche.volume" (onChange)="setVolumeMic()" [ticksFrequency]="5" [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="335" [width]="80"  
+                        [orientation]="'vertical'" class="slider" [showButtons]="false">
+                    </jqxSlider>
                 </div>
-                <div>
-                    <div class="tranche-console mic">
-                        <p class="tranche-name">Mic </p>
-                        <div class="led-box">
-                            <div class="led-green space-mic"></div>
-                        </div>
-                        <jqxSlider #jqxSlider [min]="0" [max]="20" [value]="micTranche.volume" [(ngModel)]="micTranche.volume" (onChange)="setVolumeMic()" [ticksFrequency]="5" [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="335" [width]="90"
-                            [orientation]="'vertical'" class="slider" [showButtons]="false">
-                        </jqxSlider>
-                    </div>
-                    <div class="mute">
-                        <button class="btn-mute" [class.active]="micTranche.mute" (click)="micOff()"></button>
-                        <label>Mute</label>
-                    </div>
-                    <div class="solo">
-                        <button class="btn-solo" [class.active]="micTranche.solo" (click)="micOn()"></button>
-                        <label>Solo</label>
-                    </div>
+                <div class="mute">
+                    <button class="btn-mute" [class.active]="micTranche.mute" (click)="micOff()"></button>
+                    <label>Mute</label>
                 </div>
-                <div class="item" *ngFor="let item of tranche; let i= index">
-                    <mat-select matNativeControl class="songChoice" placeholder="Song">
-                        <mat-option *ngFor="let song of songList" [value]="song.url" (click)="play(i,song.url)">{{song.title}} - {{song.artist}}</mat-option>
-                    </mat-select>
-                    <div class="tranche-console">
-                        <p class="tranche-name">Sources {{i+1}} </p>
-                        <div class="led-box">
-                            <div class="led-green"></div>
-                        </div>
-                        <div class="knob">
-                            <label>Pan</label>
-                            <mat-slider min="-10" max="10" step="1" value="0" class="slider" (input)="setPan(i,$event)"></mat-slider>
-                            <jqxKnob [min]="0" [max]="100" [value]="0" (onChange)="setHigh(i,$event)" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="50" [width]="50">
-                            </jqxKnob>
-                            <label class="frequency-name">High</label>
-                            <jqxKnob [value]="0" [min]="0" [max]="100" (onChange)="setMedium(i,$event)" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="50" [width]="50">
-                            </jqxKnob>
-                            <label class="frequency-name">Medium</label>
-                            <jqxKnob [value]="0" [min]="0" [max]="100" (onChange)="setBass(i,$event)" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="50" [width]="50">
-                            </jqxKnob>
-                            <label class="frequency-name">Bass</label>
-                        </div>
-                        <jqxSlider name="i" #jqxSlider [min]="0" [max]="10" [value]="tranche[i].volume" [(ngModel)]="tranche[i].volume" (onChange)="setVolume(i)" [ticksFrequency]="5" [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="135" [width]="90"
-                            [orientation]="'vertical'" class="slider" [showButtons]="false">
-                        </jqxSlider>
-                    </div>
-                    <div class="mute">
-                        <button class="btn-mute" [class.active]="tranche[i].mute" (click)="onMute(i)"></button>
-                        <label>Mute</label>
-                    </div>
-                    <div class="solo">
-                        <button class="btn-solo" [class.active]="tranche[i].solo" (click)="onSolo(i)"></button>
-                        <label>Solo</label>
-                    </div>
+                <div class="solo">
+                    <button class="btn-solo" [class.active]="micTranche.solo" (click)="micOn()"></button>
+                    <label>Solo</label>
                 </div>
-                <button class="btn-plus" (click)="addTranche()"><img class="plus "
-                        src="../../../assets/svg/plus.svg"></button>
+            </div>
+            <div class="item" *ngFor="let item of tranche; let i= index">
+                <mat-select matNativeControl class="songChoice" placeholder="Song">
+                    <mat-option *ngFor="let song of songList" [value]="song.url" (click)="play(i,song.url)">{{song.title}} - {{song.artist}}</mat-option>
+                </mat-select>
+                <div class="tranche-console">
+                    <p class="tranche-name">Sources {{i+1}} </p>
+                    <div class="led-box">
+                        <div class="led-green"></div>
+                    </div>
+                    <div class="knob">
+                        <label class="pan">Pan</label>
+                        <mat-slider min="-10" max="10" step="1" value="0" class="slider" (input)="setPan(i,$event)"></mat-slider>
+                        <label class="frequency-name">High</label> 
+                        <jqxKnob [min]="0" [max]="100" [value]="0" (onChange)="setHigh(i,$event)" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40">
+                        </jqxKnob>
+                        <label class="frequency-name">Medium</label>
+                        <jqxKnob [value]="0" [min]="0" [max]="100" (onChange)="setMedium(i,$event)" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40">
+                        </jqxKnob>
+                        <label class="frequency-name">Bass</label>
+                        <jqxKnob [value]="0" [min]="0" [max]="100" (onChange)="setBass(i,$event)" [startAngle]="120" [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks" [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40">
+                        </jqxKnob>
+                    </div>
+                    <jqxSlider name="i" #jqxSlider [min]="0" [max]="10" [value]="tranche[i].volume" [(ngModel)]="tranche[i].volume" (onChange)="setVolume(i)" [ticksFrequency]="5" [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="125" [width]="80"
+                        [orientation]="'vertical'" class="slider" [showButtons]="false">
+                    </jqxSlider>
+                </div>
+                <div class="mute">
+                    <button class="btn-mute" [class.active]="tranche[i].mute" (click)="onMute(i)"></button>
+                    <label>Mute</label>
+                </div>
+                <div class="solo">
+                    <button class="btn-solo" [class.active]="tranche[i].solo" (click)="onSolo(i)"></button>
+                    <label>Solo</label>
+                </div>
+            </div>
+            <button class="btn-plus" (click)="addTranche()"><img class="plus"
+                    src="../../../assets/svg/plus.svg"></button>
 
-            </div>
-        </mat-card>
-    </div>
+        </div>
+    </mat-card>
 </div>

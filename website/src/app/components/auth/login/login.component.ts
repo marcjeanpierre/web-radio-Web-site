@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       .subscribe((data: AdminAuth) => {
         localStorage.setItem('token',  data.admin.token);
         localStorage.setItem('firstname', data.admin.firstname)
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/new-mix');
         this.toastr.success('Successfuly connected');
       },
       (error) => {

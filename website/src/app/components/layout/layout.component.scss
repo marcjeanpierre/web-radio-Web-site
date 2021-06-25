@@ -1,0 +1,21 @@
+:host {
+    .full {
+        height: 100%;
+    }
+
+    .logo {
+        margin: 20px 0px;
+        width: 70px;
+        height: 60px;
+    }
+
+    .sideNavToggle {
+        width: 50px!important;
+        & .icon {
+            width: 20px!important;
+        }
+        &.sidenav-item {
+            width: 20px!important;
+        }
+    }
+}

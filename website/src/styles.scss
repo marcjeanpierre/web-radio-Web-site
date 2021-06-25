@@ -36,12 +36,8 @@ $website-theme: mat-light-theme((
 
 
 /* You can add global styles to this file, and also import other style files */
-html,
-body {
-
-    margin: 0;
-    width: 100%;
-    height: 100%;
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { LoadMixComponent } from './load-mix.component';
 
-describe('AcceuilComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('LoadMixComponent', () => {
+  let component: LoadMixComponent;
+  let fixture: ComponentFixture<LoadMixComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ LoadMixComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(LoadMixComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

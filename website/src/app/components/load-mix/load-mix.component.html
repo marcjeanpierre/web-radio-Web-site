@@ -1,0 +1,16 @@
+<div class="page-content">
+    <mat-card class="container-load ">
+        <mat-card-title class="load-title ">Recent mix</mat-card-title>
+        <mat-card class="load-item " *ngIf="loadMixLen===0">
+            <h3>Aucun Mix :/</h3>
+        </mat-card>
+        <div class="item-list">
+            <mat-card class="load-item" *ngFor="let item of loadMix ">
+                <!-- <img class="cloud" src="../../../assets/png/cloud2.png"> -->
+                <a class="item-name " routerLink="/radio-mix" (click)="load(item.title, item.nbPiste)"><i
+                        class="sidenav-icon feather icon-download-cloud icon"></i>{{item.title}}</a>
+                <label class="item-date ">{{item.year}}</label>
+            </mat-card>
+        </div>
+    </mat-card>
+</div>

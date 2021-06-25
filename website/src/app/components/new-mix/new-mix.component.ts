@@ -6,11 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 import { MixType } from '../../types/mix.type'
 
 @Component({
-  selector: 'app-acceuil',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-new-mix',
+  templateUrl: './new-mix.component.html',
+  styleUrls: ['./new-mix.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class NewMixComponent implements OnInit {
   title: string  = '';
   artist: string  = '';
   album: string  = '';
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
         this.mixService.createMix(localStorage.getItem('token') ,newMix)
         .pipe()
         .subscribe(data => {
-          this.router.navigateByUrl('/radioMix');
+          this.router.navigateByUrl('/radio-mix');
           this.toastr.success('New mix created');
           localStorage.setItem('nbPiste', newMix.nbPiste.toString());
           localStorage.setItem('title', newMix.title);
@@ -68,10 +68,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  load(title: string, nbPiste: number): void {
-    localStorage.setItem('title', title);
-    localStorage.setItem('nbPiste', nbPiste.toString());
-    this.router.navigateByUrl('/radioMix')
-  }
+  
 
 }
