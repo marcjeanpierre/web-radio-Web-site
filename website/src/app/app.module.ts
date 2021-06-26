@@ -28,7 +28,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
-import { HomeComponent } from './components/home/home.component';
+import { NewMixComponent } from './components/new-mix/new-mix.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
@@ -39,16 +39,20 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { LoadMixComponent } from './components/load-mix/load-mix.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    HomeComponent,
+    NewMixComponent,
     RadioMixComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LayoutComponent,
+    LoadMixComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +80,9 @@ import { PageNotFoundComponent } from './components/not-found/page-not-found/pag
     ToastrModule.forRoot()
   ],
   exports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -83,12 +90,17 @@ import { PageNotFoundComponent } from './components/not-found/page-not-found/pag
     MatSliderModule,
     MatTabsModule,
     MatIconModule,
+    FormsModule,
     MatCheckboxModule,
     MatSlideToggleModule,
     jqxKnobModule,
     jqxSliderModule,
     MatToolbarModule,
     MatSelectModule,
+    HttpClientModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule,
     AngularFireDatabaseModule
   ],
   providers: [],

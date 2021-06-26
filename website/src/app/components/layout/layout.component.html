@@ -1,0 +1,71 @@
+<div>
+    <!-- [ Preloader ] Start -->
+    <div class="page-loader">
+        <div class="bg-primary"></div>
+    </div>
+    <!-- [ Preloader ] End -->
+
+    <!-- [ Layout wrapper ] Start -->
+    <div class="layout-wrapper layout-2">
+        <div class="layout-inner">
+            <!-- [ Layout sidenav ] Start -->
+            <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark" [class.sideNavToggle]="isSideNavToggle">
+                <div class="app-brand">
+                    <span class="app-brand-logo" >
+                        <img src="assets/png/logo.png" alt="Brand Logo" class="img-fluid logo" *ngIf="!isSideNavToggle">
+                    </span>
+                    <a routerLink="/home" class="app-brand-text sidenav-text font-weight-normal ml-2" *ngIf="!isSideNavToggle">RadioWorld</a>
+                    <a (click)="sideNaveToggle()" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                        <i class="ion ion-md-menu align-middle"></i>
+                    </a>
+                </div>
+                <div class="sidenav-divider mt-0" *ngIf="!isSideNavToggle"></div>
+
+                <!-- Links -->
+                <ul class="sidenav-inner py-1" >
+
+                    <!-- Dashboards -->
+                    <li class="sidenav-item" routerLinkActive='active' [class.sideNavToggle]="isSideNavToggle" >
+                        <div class="sidenav-link">
+                            <i class="sidenav-icon feather icon-home"></i>
+                            <div *ngIf="!isSideNavToggle">Hello, {{firstname}} !</div>
+                        </div>
+                    </li>
+
+                    <!-- Layouts -->
+                    <li class="sidenav-divider mb-1" *ngIf="!isSideNavToggle"></li>
+                    <li class="sidenav-header small font-weight-semibold" *ngIf="!isSideNavToggle">Radio Mix</li>
+                    <li class="sidenav-item" routerLinkActive='active' [class.sideNavToggle]="isSideNavToggle">
+                        <a routerLink="/new-mix" class="sidenav-link">
+                            <i class="sidenav-icon feather icon-edit"></i>
+                            <div *ngIf="!isSideNavToggle">New mix</div>
+                        </a>
+                    </li>
+
+                    <!-- UI elements -->
+                    <li class="sidenav-item" routerLinkActive='active' [class.sideNavToggle]="isSideNavToggle">
+                        <a routerLink="/load-mix" class="sidenav-link">
+                            <i class="sidenav-icon feather icon-upload-cloud"></i>
+                            <div *ngIf="!isSideNavToggle">Load mix</div>
+                        </a>
+                    </li>
+                    <li class="sidenav-divider mb-1" *ngIf="!isSideNavToggle"></li>
+                    <li class="sidenav-item" routerLinkActive='active' [class.sideNavToggle]="isSideNavToggle">
+                        <a (click)="logout()" class="sidenav-link">
+                            <i class="sidenav-icon feather icon-power"></i>
+                            <div *ngIf="!isSideNavToggle">Logout</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- [ Layout container ] Start -->
+            <div class="layout-container full">
+                <router-outlet></router-outlet>
+            </div>
+            <!-- [ Layout container ] End -->
+        </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- [ Layout wrapper] End -->
+</div>
