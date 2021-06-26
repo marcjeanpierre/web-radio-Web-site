@@ -19,4 +19,8 @@ export interface Tranche {
     asEffect: boolean;
     audioGroup: Pizzicato.Group;
     audioSong: Pizzicato.Song;
+    songUrl?: string;
+    songTitle?: string;
+    songArtist?: string;
+    play: boolean
 }

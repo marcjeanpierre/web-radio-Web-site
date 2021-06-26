@@ -105,38 +105,57 @@
         text-align: center;
         display: block;
     }
-    .solo {
+    .play {
         color: white;
         display: block;
         align-items: center;
         margin-top: 10px;
         text-align: -webkit-center;
     }
-    .mute {
+    .mute-solo {
         color: white;
-        display: block;
         align-items: center;
         margin-top: 10px;
         text-align: -webkit-center;
     }
     .btn-solo {
-        height: 16px;
-        width: 16px;
+        margin: 2px;
+        height: 18px;
+        width: 18px;
         border-radius: 2px;
         border: none;
         background-color: yellow;
-        display: block;
+        text-align: -webkit-center;
+        padding: 0px;
     }
     .btn-mute {
-        height: 16px;
-        width: 16px;
+        margin: 2px;
+        height: 18px;
+        width: 18px;
         border-radius: 2px;
         border: none;
         background-color: blue;
-        display: block;
+        text-align: -webkit-center;
+        padding: 0px;
+    }
+    .btn-play-song {
+        margin: 2px;
+        height: 18px;
+        width: 18px;
+        border-radius: 2px;
+        border: none;
+        background-color: grey;
+        text-align: -webkit-center;
+        padding: 0px;
     }
     .active {
         background-color: red !important;
+        border: none;
+    }
+    .play-active {
+        background-color: green !important;
+        border: none;
+
     }
     .slider {
         color: white;

@@ -80,6 +80,9 @@ import { LoadMixComponent } from './components/load-mix/load-mix.component';
     ToastrModule.forRoot()
   ],
   exports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -87,12 +90,17 @@ import { LoadMixComponent } from './components/load-mix/load-mix.component';
     MatSliderModule,
     MatTabsModule,
     MatIconModule,
+    FormsModule,
     MatCheckboxModule,
     MatSlideToggleModule,
     jqxKnobModule,
     jqxSliderModule,
     MatToolbarModule,
     MatSelectModule,
+    HttpClientModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule,
     AngularFireDatabaseModule
   ],
   providers: [],

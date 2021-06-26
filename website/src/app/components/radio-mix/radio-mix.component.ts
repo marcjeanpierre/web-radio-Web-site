@@ -61,8 +61,8 @@ export class RadioMixComponent implements OnInit, OnDestroy {
       audioGroup: new Pizzicato.Group(),
       asEffect: false,
       audioSong: null,
+      play: false
     };
-    this.activeMic();
     this.getSongs();
   }
   //know props begin
@@ -141,9 +141,8 @@ export class RadioMixComponent implements OnInit, OnDestroy {
         isPlaying: false,
         asEffect: false,
         audioGroup: new Pizzicato.Group(),
-        audioSong: null
-
-
+        audioSong: null,
+        play: false
       });
     }
   }
@@ -176,7 +175,8 @@ export class RadioMixComponent implements OnInit, OnDestroy {
       isPlaying: false,
       asEffect: false,
       audioGroup: new Pizzicato.Group(),
-      audioSong: null
+      audioSong: null,
+      play: false
     });
   }
 
@@ -246,7 +246,15 @@ export class RadioMixComponent implements OnInit, OnDestroy {
     this.tranche[idTranche].asEffect = true;
     this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume;
   }
+  playMic(): void {
+    if(this.micTranche.play) {
+      this.deactivateMic();
+    }
+    else {
+      this.activeMic();
 
+    }
+  }
 
   micOn(): void {
     if (this.micTranche.solo) {
@@ -296,6 +304,7 @@ export class RadioMixComponent implements OnInit, OnDestroy {
             this.toaster.success('You microphone is working')
             this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
             this.micTranche.audioGroup.play();
+            this.micTranche.play = true;
           } else {
             this.toaster.warning('You microphone is not working, we need your authorization for using your mic')
           }
@@ -311,22 +320,47 @@ export class RadioMixComponent implements OnInit, OnDestroy {
 
   deactivateMic(): void {
     this.micTranche.audioGroup.stop();
+    this.micTranche.play = false;
   }
 
+  saveSongData(idTranche: number, url: string, title: string, artist: string): void {
+    this.tranche[idTranche].songUrl = url;
+    this.tranche[idTranche].songTitle = title;
+    this.tranche[idTranche].songArtist = artist;
+    this.tranche[idTranche].audioGroup.stop();
+    this.tranche[idTranche].play = false;
+  }
 
-  play(idTranche: number, url: string): void {
-    this.tranche[idTranche].audioGroup.stop()
-    this.tranche[idTranche].audioGroup = new Pizzicato.Group()
-    this.tranche[idTranche].audioGroup.addSound(new Pizzicato.Sound(
-      url, () => {
-        this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
-        this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
-        this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
-        this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
-        this.tranche[idTranche].audioSong = new Pizzicato.Sound(url);
-        this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
-        this.tranche[idTranche].audioGroup.play()
-      }));
+  play(idTranche: number): void {
+    if(this.tranche[idTranche].play) {
+      this.tranche[idTranche].audioGroup.stop();
+      this.tranche[idTranche].play = false;
+    } 
+    else {
+      if(this.tranche[idTranche].songUrl) {
+        this.tranche[idTranche].audioGroup.stop()
+        this.tranche[idTranche].audioGroup = new Pizzicato.Group()
+        this.tranche[idTranche].audioGroup.addSound(new Pizzicato.Sound(
+          this.tranche[idTranche].songUrl, () => {
+            this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
+            this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
+            this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
+            this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
+            this.tranche[idTranche].audioSong = new Pizzicato.Sound(this.tranche[idTranche].songUrl);
+            if(!this.tranche[idTranche].mute) {
+              this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
+            }
+            else {
+              this.tranche[idTranche].audioGroup.volume = 0;
+            }
+            this.tranche[idTranche].audioGroup.play()
+            this.tranche[idTranche].play = true;
+        }));
+      }
+      else {
+        this.toaster.warning("Choose a song before playing something")
+      }
+    }  
   }
 
 
