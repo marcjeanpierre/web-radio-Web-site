@@ -32,12 +32,7 @@ import { NewMixComponent } from './components/new-mix/new-mix.component';
 import { RadioMixComponent } from './components/radio-mix/radio-mix.component';
 import { HeaderComponent } from './components/header/header.component';
 
-// environment
-import { environment } from '../environments/environment';
 // // firebase
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { LoadMixComponent } from './components/load-mix/load-mix.component';
@@ -73,9 +68,6 @@ import { LoadMixComponent } from './components/load-mix/load-mix.component';
     MatToolbarModule,
     MatSelectModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireStorageModule,
     ReactiveFormsModule,
     ToastrModule.forRoot()
   ],
@@ -98,10 +90,7 @@ import { LoadMixComponent } from './components/load-mix/load-mix.component';
     MatToolbarModule,
     MatSelectModule,
     HttpClientModule,
-    AngularFireDatabaseModule,
-    AngularFireStorageModule,
-    ReactiveFormsModule,
-    AngularFireDatabaseModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import Pizzicato from 'pizzicato'
 import { SongService } from '../../services/song.service';
 import { Tranche } from '../../interfaces/tranche.interface'
 import { MatSliderChange } from '@angular/material/slider';
@@ -8,12 +7,20 @@ import { SongList } from '../../types/songList.type'
 import { SongElement } from '../../types/songElement.type'
 import { MixService } from 'src/app/services/mix.service';
 import { ToastrService } from 'ngx-toastr';
+import Pizzicato from "pizzicato";
+import { MixageTableInterface } from 'src/app/interfaces/mixageTable.interface';
+import TrancheRequestInterface from 'src/app/interfaces/trancheRequest.interface';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-radio-mix',
   templateUrl: './radio-mix.component.html',
   styleUrls: ['./radio-mix.component.scss']
 })
 export class RadioMixComponent implements OnInit, OnDestroy {
+  marks: any;
+  labels: any;
+  progressBar: any;
+  pointer: any;
   tranche: Tranche[] = [];
   micTranche: Tranche;
   songs = new FormControl();
@@ -26,122 +33,120 @@ export class RadioMixComponent implements OnInit, OnDestroy {
   volumeValue: number = 100;
   tuner: any;
   soloAll = 0;
-  constructor(private songService: SongService, private mixService: MixService, private toaster: ToastrService) {
-
+  token: string;
+  loaded = false
+  constructor(private songService: SongService, private mixService: MixService, private toaster: ToastrService, private router: Router, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.title = localStorage.getItem('title');
-    this.trancheByDefault(Number(localStorage.getItem('nbPiste')) || 6);
-    this.songList;
-    this.micTranche = {
-      id: -1,
-      volume: 0,
-      panStereo: {
-        pan: 0
-      },
-      panEffect: new Pizzicato.Effects.StereoPanner({
-        value: 0
-      }),
-      equalizer: {
-        highGain: 0,
-        midHighGain: 0,
-        midLowGain: 0,
-        lowGain: 0
-      },
-      equalizerEffect: new Pizzicato.Effects.Quadrafuzz({
-        highGain: 0,
-        midHighGain: 0,
-        midLowGain: 0,
-        lowGain: 0
-      }),
-      mute: false,
-      solo: false,
-      isPlaying: false,
-      audioGroup: new Pizzicato.Group(),
-      asEffect: false,
-      audioSong: null,
-      play: false
-    };
-    this.getSongs();
+    this.token = localStorage.getItem('token');
+    if (!this.token || !this.title) {
+      this.toaster.error('You have to be connected & choose or create a mix');
+      this.router.navigate(['/']);
+    }
+    // Pizzicato.context.resume();
+    // this.trancheByDefault(Number(localStorage.getItem('nbPiste')) || 6);
+    this.mixService.loadMix(this.token, this.title)
+      .pipe()
+      .subscribe((data: any) => {
+        var mixageTableResponse: MixageTableInterface = data.mixageTable;
+        this.title = mixageTableResponse.title;
+        this.micTranche = {
+          id: -1,
+          volume: 0,
+          panStereo: {
+            pan: 0
+          },
+          panEffect: null,
+          equalizer: {
+            highGain: 0,
+            midHighGain: 0,
+            midLowGain: 0,
+            lowGain: 0
+          },
+          equalizerEffect: null,
+          mute: false,
+          solo: false,
+          isPlaying: false,
+          audioGroup: new Pizzicato.Group(),
+          asEffect: false,
+          audioSong: null,
+          play: false
+        };
+        this.getSongs();
+        //know props begin
+
+        this.marks =
+        {
+          colorRemaining: { color: 'white', border: 'white' },
+          colorProgress: { color: 'red', border: '#373636' },
+          type: 'line',
+          offset: '71%',
+          thickness: 1,
+          size: '6%',
+          majorSize: '9%',
+          majorInterval: 10,
+          minorInterval: 2
+        };
+        this.labels =
+        {
+          offset: '88%',
+          step: 10,
+          visible: true
+        };
+        this.progressBar =
+        {
+          size: '70%',
+          offset: '0%',
+          background: {
+            stroke: '#373636', strokeWidth: 1, fill: { color: '#a7a7a7', gradientType: "linear", gradientStops: [[0, 1], [50, 0.5], [100, 1]] }
+          }
+        };
+        this.pointer =
+        {
+          type: 'circle', style: { fill: { color: '#a4a3a3', gradientType: "linear", gradientStops: [[0, 0.5], [50, 0.6], [100, 1]] }, stroke: '#333' },
+          size: '10%', offset: '50%'
+        };
+        this.trancheByDefault(mixageTableResponse.tranches);
+        this.loaded = true;
+      });
   }
-  //know props begin
-  marks: any =
-    {
-      colorRemaining: { color: 'white', border: 'white' },
-      colorProgress: { color: 'red', border: '#373636' },
-      type: 'line',
-      offset: '71%',
-      thickness: 1,
-      size: '6%',
-      majorSize: '9%',
-      majorInterval: 10,
-      minorInterval: 2
-    };
-  labels: any =
-    {
-      offset: '88%',
-      step: 10,
-      visible: true
-    };
-  progressBar: any =
-    {
-      size: '70%',
-      offset: '0%',
-      background: {
-        stroke: '#373636', strokeWidth: 1, fill: { color: '#a7a7a7', gradientType: "linear", gradientStops: [[0, 1], [50, 0.5], [100, 1]] }
-      }
-    };
-  pointer: any =
-    {
-      type: 'circle', style: { fill: { color: '#a4a3a3', gradientType: "linear", gradientStops: [[0, 0.5], [50, 0.6], [100, 1]] }, stroke: '#333' },
-      size: '10%', offset: '50%'
-    };
 
-
+  ngAfterContentChecked() : void {
+    this.cdr.detectChanges();
+}
   ngOnDestroy() {
     this.micTranche.audioGroup.stop();
     this.micTranche.audioGroup = null;
-    this.tranche.map((item, index) => {
+    this.tranche.map((item) => {
       item.audioGroup.stop();
       item.audioGroup = null
     })
   }
 
 
-  trancheByDefault(numberOfTranche: number): void {
-    if (!numberOfTranche) {
-      numberOfTranche = 6
-    }
-
-    for (let i = 1; i <= numberOfTranche; i++) {
+  trancheByDefault(tranches: TrancheRequestInterface[]): void {
+    var equalizerEffectTmp;
+    var panEffectTmp;
+    for (var i = 0; i < tranches.length; i++) {
+      equalizerEffectTmp = new Pizzicato.Effects.Quadrafuzz(tranches[i].equalizer);
+      panEffectTmp = new Pizzicato.Effects.StereoPanner(tranches[i].panStereo);
+      this.soloAll += tranches[i].solo ? 1:0;
       this.tranche.push({
-        id: i,
-        volume: 0,
-        panStereo: {
-          pan: 0
-        },
-        panEffect: new Pizzicato.Effects.StereoPanner({
-          value: 0
-        }),
-        equalizer: {
-          highGain: 0,
-          midHighGain: 0,
-          midLowGain: 0,
-          lowGain: 0
-        },
-        equalizerEffect: new Pizzicato.Effects.Quadrafuzz({
-          highGain: 0,
-          midHighGain: 0,
-          midLowGain: 0,
-          lowGain: 0
-        }),
-        mute: false,
-        solo: false,
+        id: tranches[i].idTranche,
+        volume: tranches[i].volume,
+        panStereo: tranches[i].panStereo,
+        panEffect: panEffectTmp,
+        equalizer: tranches[i].equalizer,
+        equalizerEffect: equalizerEffectTmp,
+        mute: tranches[i].mute,
+        solo: tranches[i].solo,
         isPlaying: false,
-        asEffect: false,
-        audioGroup: new Pizzicato.Group(),
+        asEffect: tranches[i].asEffect,
+        audioGroup: new Pizzicato.Group().addEffect(equalizerEffectTmp).addEffect(panEffectTmp),
         audioSong: null,
+        songUrl: tranches[i].songUrl,
         play: false
       });
     }
@@ -181,7 +186,8 @@ export class RadioMixComponent implements OnInit, OnDestroy {
   }
 
 
-  setVolume(idTranche: number): void {
+  setVolume(idTranche: number, event: any): void {
+    this.tranche[idTranche].volume = event.args.value
     if (!this.tranche[idTranche].mute && this.soloAll === 0) {
       this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
     }
@@ -200,7 +206,7 @@ export class RadioMixComponent implements OnInit, OnDestroy {
       this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].equalizerEffect);
       this.tranche[idTranche].asEffect = false;
     }
-    this.tranche[idTranche].equalizer.highGain = event.args.value / 100;
+    this.tranche[idTranche].equalizer.highGain = event.args.value /100;
     this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer)
     this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
     this.tranche[idTranche].asEffect = true;
@@ -212,9 +218,9 @@ export class RadioMixComponent implements OnInit, OnDestroy {
     if (this.tranche[idTranche].asEffect) {
       this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].equalizerEffect);
       this.tranche[idTranche].asEffect = false;
+      this.tranche[idTranche].equalizer.midHighGain = event.args.value /100;
+      this.tranche[idTranche].equalizer.midLowGain = event.args.value /100;
     }
-    this.tranche[idTranche].equalizer.midHighGain = event.args.value / 100;
-    this.tranche[idTranche].equalizer.midLowGain = event.args.value / 100;
     this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer)
     this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
     this.tranche[idTranche].asEffect = true;
@@ -227,7 +233,7 @@ export class RadioMixComponent implements OnInit, OnDestroy {
       this.tranche[idTranche].audioGroup.removeEffect(this.tranche[idTranche].equalizerEffect);
       this.tranche[idTranche].asEffect = false;
     }
-    this.tranche[idTranche].equalizer.lowGain = event.args.value / 100;
+    this.tranche[idTranche].equalizer.lowGain = event.args.value /100;
     this.tranche[idTranche].equalizerEffect = new Pizzicato.Effects.Quadrafuzz(this.tranche[idTranche].equalizer);
     this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].equalizerEffect);
     this.tranche[idTranche].asEffect = true;
@@ -247,7 +253,7 @@ export class RadioMixComponent implements OnInit, OnDestroy {
     this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume;
   }
   playMic(): void {
-    if(this.micTranche.play) {
+    if (this.micTranche.play) {
       this.deactivateMic();
     }
     else {
@@ -298,22 +304,19 @@ export class RadioMixComponent implements OnInit, OnDestroy {
       source: 'input',
       options: { volume: 0.8 }
     }, () => {
-      navigator.permissions.query({ name: 'microphone' }).then((permissionStatus) => {
-        do {
-          if (permissionStatus.state === 'granted') {
-            this.toaster.success('You microphone is working')
-            this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
-            this.micTranche.audioGroup.play();
-            this.micTranche.play = true;
-          } else {
-            this.toaster.warning('You microphone is not working, we need your authorization for using your mic')
-          }
+      navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then((permissionStatus) => {
+        this.toaster.success('You microphone is working');
+        this.micTranche.audioGroup.volume = this.micTranche.volume / 10;
+        this.micTranche.audioGroup.play();
+        this.micTranche.play = true;
 
-        } while (permissionStatus.state !== 'granted')
-      }).catch(err => {
-        this.toaster.warning("we need your authorization for using your mic")
-        console.log("u got an error:" + err)
-      });
+      },
+        e => {
+          this.toaster.warning('You microphone is not working, we need your authorization for using your mic');
+        }).catch(err => {
+          this.toaster.warning("we need your authorization for using your mic");
+          console.log("u got an error:" + err);
+        });
     })
   }
 
@@ -332,12 +335,12 @@ export class RadioMixComponent implements OnInit, OnDestroy {
   }
 
   play(idTranche: number): void {
-    if(this.tranche[idTranche].play) {
+    if (this.tranche[idTranche].play) {
       this.tranche[idTranche].audioGroup.stop();
       this.tranche[idTranche].play = false;
-    } 
+    }
     else {
-      if(this.tranche[idTranche].songUrl) {
+      if (this.tranche[idTranche].songUrl) {
         this.tranche[idTranche].audioGroup.stop()
         this.tranche[idTranche].audioGroup = new Pizzicato.Group()
         this.tranche[idTranche].audioGroup.addSound(new Pizzicato.Sound(
@@ -347,7 +350,7 @@ export class RadioMixComponent implements OnInit, OnDestroy {
             this.tranche[idTranche].panEffect = new Pizzicato.Effects.StereoPanner(this.tranche[idTranche].panStereo);
             this.tranche[idTranche].audioGroup.addEffect(this.tranche[idTranche].panEffect);
             this.tranche[idTranche].audioSong = new Pizzicato.Sound(this.tranche[idTranche].songUrl);
-            if(!this.tranche[idTranche].mute) {
+            if (!this.tranche[idTranche].mute) {
               this.tranche[idTranche].audioGroup.volume = this.tranche[idTranche].volume / 10;
             }
             else {
@@ -355,12 +358,12 @@ export class RadioMixComponent implements OnInit, OnDestroy {
             }
             this.tranche[idTranche].audioGroup.play()
             this.tranche[idTranche].play = true;
-        }));
+          }));
       }
       else {
         this.toaster.warning("Choose a song before playing something")
       }
-    }  
+    }
   }
 
 
@@ -397,7 +400,6 @@ export class RadioMixComponent implements OnInit, OnDestroy {
     else {
       this.solo(idTranche);
     }
-    console.log(this.soloAll)
   }
 
 
@@ -452,7 +454,32 @@ export class RadioMixComponent implements OnInit, OnDestroy {
 
 
   save(): void {
-    //TODO
-    console.log("save");
+    var tranches: TrancheRequestInterface[] = [];
+    for (var item of this.tranche) {
+      tranches.push({
+        asEffect: item.asEffect,
+        equalizer: item.equalizer,
+        idTranche: item.id,
+        isPlaying: item.isPlaying,
+        panStereo: item.panStereo,
+        play: item.play,
+        solo: item.solo,
+        mute: item.mute,
+        songUrl: item.songUrl,
+        volume: item.volume
+      })
+    }
+    const mixageTable: MixageTableInterface = {
+      title: this.title,
+      tranches: tranches
+    }
+    this.mixService.saveMix(localStorage.getItem('token'), mixageTable)
+      .pipe()
+      .subscribe((data: any) => {
+        this.toaster.success(data.message);
+      },
+        err => {
+          this.toaster.warning(err.error.message);
+        });
   }
 }

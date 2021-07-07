@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   login(admin: Admin): Observable<object> {
-    return this.httpClient.post(ApiUrl+"/admin/login", {
+    return this.httpClient.post(`${ApiUrl}/admin/login`, {
       'email': admin.email,
       'password': admin.password
     });
@@ -19,15 +19,15 @@ export class AuthService {
 
   logout(token: string): Observable<object> {
     const headers = { 'Authorization': 'Bearer ' + token };
-    return this.httpClient.delete(ApiUrl+"/admin/logout", { headers });
+    return this.httpClient.delete(`${ApiUrl}/admin/logout`, { headers });
   }
 
   forgotPassword(email: string): Observable<object> {
-    return this.httpClient.post(ApiUrl+"/admin/forgot-password", {'email': email });
+    return this.httpClient.post(`${ApiUrl}/admin/forgot-password`, {'email': email });
   }
 
   resetPassword(token: string, password: string): Observable<object> {
     const headers = { 'Authorization': 'Bearer ' + token };
-    return this.httpClient.post(ApiUrl+"/customer/reset", {'password': password },{ headers });
+    return this.httpClient.post(`${ApiUrl}/customer/reset`, {'password': password },{ headers });
   }
 }

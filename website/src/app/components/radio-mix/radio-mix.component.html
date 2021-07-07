@@ -1,5 +1,5 @@
 <!-- <app-header></app-header> -->
-<div class="page-content">
+<div class="page-content" *ngIf="loaded">
     <mat-card class="container">
         <div class="bloc-mixage-title">
             <H2 class="title">{{title}}</H2>
@@ -57,26 +57,26 @@
                     </div>
                     <div class="knob">
                         <label class="pan">Pan</label>
-                        <mat-slider min="-10" max="10" step="1" value="0" class="slider" (input)="setPan(i,$event)">
+                        <mat-slider min="-10" max="10" step="1" [value]="tranche[i].panStereo.pan * 10" class="slider" (input)="setPan(i,$event)">
                         </mat-slider>
                         <label class="frequency-name">High</label>
-                        <jqxKnob [min]="0" [max]="100" [value]="0" (onChange)="setHigh(i,$event)" [startAngle]="120"
+                        <jqxKnob [value]="tranche[i].equalizer.highGain * 100" [min]="0" [max]="100"  [startAngle]="120"
                             [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks"
-                            [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40">
+                            [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40" (onChange)="setHigh(i,$event)">
                         </jqxKnob>
                         <label class="frequency-name">Medium</label>
-                        <jqxKnob [value]="0" [min]="0" [max]="100" (onChange)="setMedium(i,$event)" [startAngle]="120"
+                        <jqxKnob [value]="tranche[i].equalizer.midLowGain * 100" [min]="0" [max]="100"  [startAngle]="120"
                             [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks"
-                            [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40">
+                            [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40" (onChange)="setMedium(i,$event)">
                         </jqxKnob>
                         <label class="frequency-name">Bass</label>
-                        <jqxKnob [value]="0" [min]="0" [max]="100" (onChange)="setBass(i,$event)" [startAngle]="120"
+                        <jqxKnob [value]="tranche[i].equalizer.lowGain * 100" [min]="0" [max]="100"  [startAngle]="120"
                             [endAngle]="480" [snapToStep]="true" [rotation]="'clockwise'" [marks]="marks"
-                            [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40">
+                            [progressBar]="progressBar" [pointer]="pointer" [height]="40" [width]="40" (onChange)="setBass(i,$event)">
                         </jqxKnob>
                     </div>
-                    <jqxSlider name="i" #jqxSlider [min]="0" [max]="10" [value]="tranche[i].volume"
-                        [(ngModel)]="tranche[i].volume" (onChange)="setVolume(i)" [ticksFrequency]="5"
+                    <jqxSlider [value]="tranche[i].volume" name="i" #jqxSlider [min]="0" [max]="10" 
+                        (onChange)="setVolume(i, $event)" [ticksFrequency]="5"
                         [showMinorTicks]="true" [minorTicksFrequency]="1" [showTickLabels]="false" [height]="125"
                         [width]="80" [orientation]="'vertical'" class="slider" [showButtons]="false">
                     </jqxSlider>
@@ -92,7 +92,6 @@
             </div>
             <button class="btn-plus" (click)="addTranche()"><img class="plus"
                     src="../../../assets/svg/plus.svg"></button>
-
         </div>
     </mat-card>
 </div>

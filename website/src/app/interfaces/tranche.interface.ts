@@ -1,4 +1,3 @@
-import Pizzicato from 'pizzicato'
 export interface Tranche {
     id: number;
     volume: number;
@@ -17,8 +16,8 @@ export interface Tranche {
     mute: boolean;
     isPlaying: boolean;
     asEffect: boolean;
-    audioGroup: Pizzicato.Group;
-    audioSong: Pizzicato.Song;
+    audioGroup: any;
+    audioSong: any;
     songUrl?: string;
     songTitle?: string;
     songArtist?: string;

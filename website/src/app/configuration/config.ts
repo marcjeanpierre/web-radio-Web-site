@@ -3,4 +3,4 @@ export enum apiConfig {
     onlineUrl = "https://api-radio-world.herokuapp.com"
 }
 
-export var ApiUrl = apiConfig.onlineUrl;
+export var ApiUrl = apiConfig.localUrl;

@@ -7,7 +7,7 @@
         <div class="item-list">
             <mat-card class="load-item" *ngFor="let item of loadMix ">
                 <!-- <img class="cloud" src="../../../assets/png/cloud2.png"> -->
-                <a class="item-name " routerLink="/radio-mix" (click)="load(item.title, item.nbPiste)"><i
+                <a class="item-name" (click)="load(item.title)"><i
                         class="sidenav-icon feather icon-download-cloud icon"></i>{{item.title}}</a>
                 <label class="item-date ">{{item.year}}</label>
             </mat-card>
